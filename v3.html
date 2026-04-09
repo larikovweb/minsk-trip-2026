@@ -12,7 +12,7 @@
   --bg:#09090b;--s1:#111113;--s2:#18181b;--brd:#27272a;
   --txt:#fafafa;--mute:#71717a;
   --lime:#a3e635;--pink:#ec4899;--blue:#38bdf8;--red:#ef4444;--amber:#fbbf24;--violet:#a78bfa;
-  --neon:0 0 20px var(--lime),0 0 40px color-mix(in srgb,var(--lime) 30%,transparent);
+  --neon:0 0 20px var(--lime),0 0 40px rgba(163,230,53,0.3);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
@@ -31,7 +31,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 
 /* ── HERO ── */
 .hero{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(163,230,53,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 60%,rgba(236,72,153,.05) 0%,transparent 50%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;background:radial-gradient(ellipse at 30% 40%,rgba(163,230,53,.06) 0%,transparent 50%),radial-gradient(ellipse at 70% 60%,rgba(236,72,153,.05) 0%,transparent 50%);pointer-events:none}
 .hero-content{position:relative;z-index:1}
 .hero-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--lime);border:1px solid var(--lime);padding:.3rem .9rem;border-radius:0;margin-bottom:1.5rem;text-shadow:var(--neon)}
 .hero h1{font-family:'Space Mono',monospace;font-size:clamp(2.5rem,8vw,6rem);font-weight:700;line-height:.95;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:-.02em}
@@ -70,18 +70,29 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 /* ── DAYS ACCORDION ── */
 .day-details{border:1px solid var(--brd);border-radius:2px;margin-bottom:.75rem;background:var(--s1);overflow:hidden}
 .day-details[open]{border-color:var(--lime)}
-.day-details summary{padding:1rem 1.25rem;cursor:pointer;display:flex;align-items:center;gap:1rem;list-style:none;font-family:'Space Mono',monospace;font-weight:700;font-size:.95rem;transition:background .2s}
+.day-details summary{padding:1rem 1.25rem;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;list-style:none;font-family:'Space Mono',monospace;font-weight:700;font-size:.95rem;transition:background .2s}
 .day-details summary::-webkit-details-marker{display:none}
-.day-details summary::after{content:'+';margin-left:auto;font-size:1.2rem;color:var(--lime);transition:transform .3s}
+.day-details summary::after{content:'+';margin-left:auto;font-size:1.2rem;color:var(--lime);transition:transform .3s;flex-shrink:0}
 .day-details[open] summary::after{transform:rotate(45deg)}
 .day-details summary:hover{background:var(--s2)}
-.day-emoji{font-size:1.6rem}
-.day-title{flex:1}
-.day-badge{font-size:.68rem;padding:.15rem .5rem;background:var(--s2);border:1px solid var(--brd);border-radius:2px;color:var(--mute);font-weight:400}
+.day-emoji{font-size:1.4rem;flex-shrink:0}
+.day-title{flex:1 1 auto;min-width:0;font-size:.88rem}
+.day-badges{display:flex;gap:.4rem;flex-shrink:0}
+.day-badge{font-size:.65rem;padding:.15rem .45rem;background:var(--s2);border:1px solid var(--brd);border-radius:2px;color:var(--mute);font-weight:400;white-space:nowrap}
 .day-sunset{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.2);color:var(--amber)}
 
-.day-body{padding:0 1.25rem 1.25rem;animation:accordionIn .4s ease}
-@keyframes accordionIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+/* Smooth accordion animation */
+.day-body{padding:0 1.25rem 1.25rem;overflow:hidden}
+.day-body-inner{animation:accordSlide .35s ease-out}
+@keyframes accordSlide{from{opacity:0;max-height:0;transform:translateY(-12px)}to{opacity:1;max-height:4000px;transform:translateY(0)}}
+
+@media(max-width:520px){
+  .day-details summary{font-size:.82rem;padding:.85rem 1rem;gap:.4rem .5rem}
+  .day-emoji{font-size:1.2rem}
+  .day-title{font-size:.8rem;flex-basis:calc(100% - 3rem);order:0}
+  .day-badges{order:1}
+  .day-body{padding:0 1rem 1rem}
+}
 .day-joke{font-size:.78rem;color:var(--mute);font-style:italic;margin-bottom:1rem;padding-left:.75rem;border-left:2px solid var(--brd)}
 
 /* ── SPOT GRID (tile layout) ── */
@@ -98,7 +109,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 .badge{font-size:.68rem;padding:.15rem .5rem;border-radius:2px;font-weight:600;display:inline-flex;align-items:center;gap:.2rem}
 .b-price{background:rgba(163,230,53,.1);color:var(--lime)}
 .b-rating{background:rgba(251,146,60,.1);color:var(--amber)}
-.maplink{font-size:.78rem;color:var(--lime);font-family:'Space Mono',monospace;padding:.25rem .6rem;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.2);border-radius:2px;display:inline-flex;align-items:center;gap:.25rem;min-height:32px;text-decoration:none}
+.maplink{font-size:.78rem;color:var(--lime);font-family:'Space Mono',monospace;padding:.4rem .7rem;background:rgba(163,230,53,.08);border:1px solid rgba(163,230,53,.2);border-radius:2px;display:inline-flex;align-items:center;gap:.25rem;min-height:44px;text-decoration:none}
 .maplink:hover{background:rgba(163,230,53,.15);text-decoration:none}
 
 /* Crazy card */
@@ -124,7 +135,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 @media(max-width:768px){.food-bento{grid-template-columns:1fr}.fb-wide{grid-column:span 1}}
 
 /* Roulette */
-.roulette-btn{font-family:'Space Mono',monospace;font-size:.85rem;padding:.6rem 1.5rem;background:var(--pink);color:#fff;border:none;cursor:pointer;border-radius:0;margin:1.5rem 0;transition:background .2s,transform .2s;text-transform:uppercase;letter-spacing:.08em}
+.roulette-btn{font-family:'Space Mono',monospace;font-size:.85rem;padding:.7rem 1.5rem;min-height:44px;background:var(--pink);color:#fff;border:none;cursor:pointer;border-radius:0;margin:1.5rem 0;transition:background .2s,transform .2s;text-transform:uppercase;letter-spacing:.08em}
 .roulette-btn:hover{background:var(--red);transform:scale(1.03)}
 .roulette-btn:active{transform:scale(.97)}
 .roulette-result{background:var(--s1);border:2px solid var(--pink);padding:1rem 1.2rem;margin-bottom:1rem;font-size:.9rem;display:none;animation:popIn .3s ease}
@@ -132,7 +143,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 
 /* ── PLAYING CARDS (places) ── */
 .suits{display:flex;gap:.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
-.suit-btn{font-family:'Space Mono',monospace;font-size:.8rem;padding:.4rem 1rem;background:var(--s1);border:1px solid var(--brd);color:var(--mute);cursor:pointer;transition:all .2s}
+.suit-btn{font-family:'Space Mono',monospace;font-size:.8rem;padding:.55rem 1rem;background:var(--s1);border:1px solid var(--brd);color:var(--mute);cursor:pointer;transition:all .2s;min-height:44px}
 .suit-btn:hover{border-color:var(--lime);color:var(--txt)}
 .suit-btn.active{background:var(--lime);color:var(--bg);border-color:var(--lime)}
 .deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.85rem}
@@ -152,7 +163,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 .mt:hover{border-color:var(--lime);color:var(--txt)}
 .mt.active{background:var(--lime);color:var(--bg);border-color:var(--lime)}
 .mp{display:none}.mp.active{display:block}
-.map-box{width:100%;height:480px;border:1px solid var(--brd);margin-bottom:.75rem;-webkit-mask-image:-webkit-radial-gradient(white,black)}
+.map-box{width:100%;height:480px;border:1px solid var(--brd);margin-bottom:.75rem;-webkit-mask-image:-webkit-radial-gradient(white,black);mask-image:radial-gradient(white,black);isolation:isolate}
 .map-stops{display:flex;flex-direction:column;gap:.35rem}
 .ms{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--mute);font-family:'Space Mono',monospace}
 .ms-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#000;flex-shrink:0}
@@ -182,7 +193,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 .checklist{columns:2;column-gap:1.5rem;margin-bottom:.5rem}
 .check-item{break-inside:avoid;display:flex;align-items:flex-start;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--brd);cursor:pointer;-webkit-user-select:none;user-select:none;transition:opacity .3s}
 .check-item.done{opacity:.4;text-decoration:line-through}
-.check-box{width:20px;height:20px;border:2px solid var(--lime);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:background .2s}
+.check-box{width:24px;height:24px;border:2px solid var(--lime);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.7rem;transition:background .2s}
 .check-box::after{content:'';display:none}
 .check-item.done .check-box{background:var(--lime)}
 .check-item.done .check-box::after{content:'✓';display:block;color:var(--bg);font-weight:700;font-size:.75rem;line-height:1}
@@ -202,7 +213,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
 
 /* ── FOOTER ── */
 .footer{text-align:center;padding:3rem 1rem;border-top:1px solid var(--brd);font-family:'Space Mono',monospace;font-size:.72rem;color:var(--mute);padding-bottom:calc(2rem + env(safe-area-inset-bottom,0))}
-.footer-q{margin-top:.5rem;font-style:italic;font-family:'Nunito Sans',sans-serif;color:color-mix(in srgb,var(--mute) 60%,transparent)}
+.footer-q{margin-top:.5rem;font-style:italic;font-family:'Nunito Sans',sans-serif;color:rgba(113,113,122,0.6)}
 
 /* ── TOUCH ── */
 @media(hover:none),(pointer:coarse){
@@ -270,10 +281,9 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
         <summary>
             <span class="day-emoji">🛬</span>
             <span class="day-title">День 1 — Высадка и разведка</span>
-            <span class="day-badge">2 чел</span>
-            <span class="day-badge day-sunset">☀ 20:18</span>
+            <div class="day-badges"><span class="day-badge">2 чел</span><span class="day-badge day-sunset">☀ 20:18</span></div>
         </summary>
-        <div class="day-body">
+        <div class="day-body"><div class="day-body-inner">
             <div class="day-joke">«16 апреля. Четверг. Мы добровольно сели в поезд до Минска. Пути назад нет. Буквально — обратный билет только через 4 дня.»</div>
             <div class="spot-grid">
                 <div class="spot">
@@ -301,7 +311,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
                     <div class="spot-body"><div class="spot-time">АЛЬТЕРНАТИВА</div><div class="spot-name">Казино «Шангри Ла»</div><div class="spot-desc">Проиграть зарплату в первый вечер. Эффективно. Бесповоротно. Элегантно. Зато будет о чём рассказать на терапии.</div><div class="spot-joke">Казино в Минске легальны. Ваши финансовые решения в 2 часа ночи — нет.</div><div class="spot-foot"><span class="badge b-price">-∞ ₽</span><a href="https://yandex.ru/maps/?text=Минск+казино+Шангри+Ла" target="_blank" class="maplink">📍 на карте</a></div></div>
                 </div>
             </div>
-        </div>
+        </div></div>
     </details>
 
     <!-- DAY 2 -->
@@ -309,10 +319,9 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
         <summary>
             <span class="day-emoji">🧭</span>
             <span class="day-title">День 2 — Глубокое погружение</span>
-            <span class="day-badge">2 чел</span>
-            <span class="day-badge day-sunset">☀ 20:20</span>
+            <div class="day-badges"><span class="day-badge">2 чел</span><span class="day-badge day-sunset">☀ 20:20</span></div>
         </summary>
-        <div class="day-body">
+        <div class="day-body"><div class="day-body-inner">
             <div class="day-joke">«Пятница. Сегодня мы культурные люди. Ботсад. Библиотека. Проспект. К вечеру маска спадёт, но хотя бы попытались.»</div>
             <div class="spot-grid">
                 <div class="spot">
@@ -344,7 +353,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
                     <div class="spot-body"><div class="spot-time">20:00</div><div class="spot-name">Simple</div><div class="spot-desc">Авторская европейская кухня. Стильно. Красиво. Инстаграм одобряет.</div><div class="spot-foot"><span class="badge b-rating">4.7</span><span class="badge b-price">1500-2500 ₽</span><a href="https://yandex.ru/maps/?text=Минск+Simple" target="_blank" class="maplink">📍 на карте</a></div></div>
                 </div>
             </div>
-        </div>
+        </div></div>
     </details>
 
     <!-- DAY 3 -->
@@ -352,10 +361,9 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
         <summary>
             <span class="day-emoji">💥</span>
             <span class="day-title">День 3 — ПОЛНЫЙ СБОР</span>
-            <span class="day-badge">4 чел</span>
-            <span class="day-badge day-sunset">☀ 20:22</span>
+            <div class="day-badges"><span class="day-badge">4 чел</span><span class="day-badge day-sunset">☀ 20:22</span></div>
         </summary>
-        <div class="day-body">
+        <div class="day-body"><div class="day-body-inner">
             <div class="day-joke">«Суббота. Подкрепление прибыло. Теперь нас четверо. Коллективный IQ не изменился, но уверенности стало в 4 раза больше. Минск не готов.»</div>
             <div class="spot-grid">
                 <div class="spot"><img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="" loading="lazy" data-caption="Вокзал — встреча"><div class="spot-body"><div class="spot-time">08:57</div><div class="spot-name">Встреча +2 на вокзале</div><div class="spot-desc">Кофе. Брифинг для новоприбывших. Объяснить валюту, показать Яндекс Go, рассказать где не надо переходить дорогу. Краткий курс выживания за 15 минут.</div><div class="spot-joke">«Добро пожаловать в Минск. Нет, мы тоже не читаем вывески. Да, бары уже нашли. Нет, вчера мы не перебрали. Может быть, немного.»</div><div class="spot-foot"><a href="https://yandex.ru/maps/?text=Минск+жд+вокзал" target="_blank" class="maplink">📍 на карте</a></div></div></div>
@@ -378,7 +386,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
                     <div class="spot-body"><div class="spot-time" style="color:var(--pink)">21:30 — &infin;</div><div class="spot-name" style="color:var(--pink)">ЗЫБИЦКАЯ. СУББОТА.</div><div class="spot-desc">Хулиган → Банки-Бутылки → Underbar. Полный состав. Ради этого вечера всё затевалось. Всё остальное — предисловие.</div><div class="spot-joke">Уровень ответственности: минус. Уровень готовности: запредельный. Уровень сожалений завтра: данные засекречены.</div><div class="spot-foot"><span class="badge b-rating">4.7</span><span class="badge b-price">800-1500 ₽</span><a href="https://yandex.ru/maps/?text=Минск+Зыбицкая" target="_blank" class="maplink">📍 на карте</a></div></div>
                 </div>
             </div>
-        </div>
+        </div></div>
     </details>
 
     <!-- DAY 4 -->
@@ -386,10 +394,9 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
         <summary>
             <span class="day-emoji">🩹</span>
             <span class="day-title">День 4 — Реабилитация</span>
-            <span class="day-badge">4 чел</span>
-            <span class="day-badge day-sunset">☀ 20:24</span>
+            <div class="day-badges"><span class="day-badge">4 чел</span><span class="day-badge day-sunset">☀ 20:24</span></div>
         </summary>
-        <div class="day-body">
+        <div class="day-body"><div class="day-body-inner">
             <div class="day-joke">«Воскресенье. Тело просит пощады. Мозг — перезагрузки. Кошелёк — тишины. Протокол реабилитации: углеводы → вода → свежий воздух → притвориться что вчера ничего не было.»</div>
             <div class="spot-grid">
                 <div class="spot"><img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Barge_Restaurant_on_the_Svislach_River_in_Minsk_12_May_2014.jpg" alt="" loading="lazy" data-caption="Кафе Лидо"><div class="spot-body"><div class="spot-time">11:00</div><div class="spot-name">Лидо — реанимация</div><div class="spot-desc">Столовая-буфет. Набираешь поднос и не думаешь. Мозг ещё не включился — и это преимущество. Интуиция ведёт к котлетам. Интуиция права.</div><div class="spot-joke">Лидо — единственное место где похмелье не осуждают, а обслуживают. Тут все такие. Особенно по воскресеньям.</div><div class="spot-foot"><span class="badge b-rating">4.3</span><span class="badge b-price">300-500 ₽</span><a href="https://yandex.ru/maps/?text=Минск+Лидо" target="_blank" class="maplink">📍 на карте</a></div></div></div>
@@ -411,7 +418,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
                 </div>
                 <div class="spot"><img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/4376_Embankment_of_the_Svisla%C4%8D_River_in_Minsk_May_2019.jpg" alt="" loading="lazy" data-caption="Ресторан Бессонница"><div class="spot-body"><div class="spot-time">20:00</div><div class="spot-name">Бессонница — финальный ужин</div><div class="spot-desc">Авторская кухня. Коктейли. Бронируйте заранее.</div><div class="spot-joke">Название ресторана — пророчество или предупреждение. Зависит от количества коктейлей.</div><div class="spot-foot"><span class="badge b-rating">4.6</span><span class="badge b-price">1500-2500 ₽</span><a href="https://yandex.ru/maps/?text=Минск+Бессонница" target="_blank" class="maplink">📍 на карте</a></div></div></div>
             </div>
-        </div>
+        </div></div>
     </details>
 
     <!-- DAY 5 -->
@@ -419,10 +426,9 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
         <summary>
             <span class="day-emoji">🏳</span>
             <span class="day-title">День 5 — Эвакуация</span>
-            <span class="day-badge">4 чел</span>
-            <span class="day-badge day-sunset">☀ 20:26</span>
+            <div class="day-badges"><span class="day-badge">4 чел</span><span class="day-badge day-sunset">☀ 20:26</span></div>
         </summary>
-        <div class="day-body">
+        <div class="day-body"><div class="day-body-inner">
             <div class="day-joke">«Понедельник. Всё хорошее заканчивается. Печень просит перемирия. Чемодан не закрывается. В поезде будем молча смотреть в окно и переваривать. Во всех смыслах.»</div>
             <div class="spot-grid">
                 <div class="spot"><img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Grand_Cafe%2C_2%2C_Lenin_str.%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="" loading="lazy" data-caption="Последний завтрак"><div class="spot-body"><div class="spot-time">09:00</div><div class="spot-name">Завтрак</div><div class="spot-desc">Кофе. Пампушки. Экзистенциальная тишина. Кто-то листает фотки со вчера. Кто-то удаляет фотки со вчера.</div><div class="spot-foot"><span class="badge b-price">300-500 ₽</span></div></div></div>
@@ -433,7 +439,7 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
                 <div class="spot"><img class="spot-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="" loading="lazy" data-caption="Garage Food у вокзала"><div class="spot-body"><div class="spot-time">12:30</div><div class="spot-name">Garage Food — финал</div><div class="spot-desc">Бургеры у вокзала. Быстро. Без сюрпризов. Мы уже не в том состоянии для сюрпризов.</div><div class="spot-foot"><span class="badge b-rating">4.4</span><span class="badge b-price">600-1000 ₽</span><a href="https://yandex.ru/maps/?text=Минск+Garage+Food" target="_blank" class="maplink">📍 на карте</a></div></div></div>
                 <div class="spot" style="border-color:var(--lime)"><div class="spot-body"><div class="spot-time" style="color:var(--lime)">15:59</div><div class="spot-name" style="color:var(--lime)">ЭВАКУАЦИЯ ЗАВЕРШЕНА</div><div class="spot-desc">Все живы. Все в поезде. Чемоданы набиты шоколадом и настойками. Один пакет порвался. Кто-то спит сидя. Операция «Бульба» — безоговорочный успех.</div><div class="spot-joke">Финальный отчёт: печень — ущерб средний. Бюджет — потери критические. Достоинство — утеряно на Зыбицкой в субботу. Воспоминания — бесценны. Фотографии — компрометирующие.</div></div></div>
             </div>
-        </div>
+        </div></div>
     </details>
 </section>
 
@@ -645,6 +651,18 @@ a{color:var(--lime);text-decoration:none}a:hover{text-decoration:underline}
     if(!opened&&days.length)days[0].open=true; // default: first day
 }();
 
+// Accordion scroll-to-top on open
+document.querySelectorAll('.day-details').forEach(function(d){
+    d.addEventListener('toggle',function(){
+        if(d.open){
+            setTimeout(function(){
+                var y=d.getBoundingClientRect().top+(window.scrollY||window.pageYOffset||0)-20;
+                try{window.scrollTo({top:y,behavior:'smooth'});}catch(e){window.scrollTo(0,y);}
+            },50);
+        }
+    });
+});
+
 // Countdown
 !function(){var t=new Date('2026-04-16T13:16:00+03:00').getTime(),cd=document.getElementById('cd'),cl=document.getElementById('cdLabel');function u(){var n=t-Date.now();if(n<=0){cd.textContent='00:00:00:00';cl.textContent='миссия активна';if(Date.now()>new Date('2026-04-20T15:59:00+03:00').getTime()){cd.textContent='ВЫПОЛНЕНО';cl.textContent='операция завершена';}return;}var d=Math.floor(n/864e5),h=Math.floor(n%864e5/36e5),m=Math.floor(n%36e5/6e4),s=Math.floor(n%6e4/1e3);cd.textContent=String(d).padStart(2,'0')+':'+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');requestAnimationFrame(u);}u();}();
 
@@ -709,7 +727,7 @@ document.getElementById('placeRoulette').addEventListener('click',function(){
 function initChecklist(listId,counterId,doneWord){
     var items=document.querySelectorAll('#'+listId+' .check-item');
     var key='bulba_'+listId;
-    var saved=JSON.parse(localStorage.getItem(key)||'[]');
+    var saved=[];try{saved=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}
     function updateCount(){
         var done=document.querySelectorAll('#'+listId+' .check-item.done').length;
         document.getElementById(counterId).textContent=done+' / '+items.length+' '+doneWord;
@@ -720,7 +738,7 @@ function initChecklist(listId,counterId,doneWord){
             item.classList.toggle('done');
             var cur=[];
             items.forEach(function(it,j){if(it.classList.contains('done'))cur.push(j);});
-            localStorage.setItem(key,JSON.stringify(cur));
+            try{localStorage.setItem(key,JSON.stringify(cur));}catch(e){}
             updateCount();
         });
     });
