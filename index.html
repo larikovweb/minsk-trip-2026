@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <title>Минск 16-20 апреля 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --bg: #0a0a0f;
+            --card: #13131a;
+            --card-hover: #1a1a24;
+            --border: #2a2a3a;
+            --text: #e4e4ef;
+            --text-muted: #8888a0;
+            --accent: #6c63ff;
+            --accent-light: #8b83ff;
+            --accent-glow: rgba(108, 99, 255, 0.15);
+            --green: #34d399;
+            --green-glow: rgba(52, 211, 153, 0.15);
+            --orange: #fb923c;
+            --orange-glow: rgba(251, 146, 60, 0.15);
+            --pink: #f472b6;
+            --pink-glow: rgba(244, 114, 182, 0.15);
+            --red: #f87171;
+            --yellow: #fbbf24;
+            --cyan: #22d3ee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: env(safe-area-inset-top, 0);
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            padding: 2rem;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 95vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 60px rgba(108,99,255,0.2);
+            animation: lbIn 0.3s ease;
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(19,19,26,0.9);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(19,19,26,0.8);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover { background: var(--accent); }
+        @keyframes lbIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            min-height: -webkit-fill-available;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 2rem; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(108,99,255,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 50%, rgba(244,114,182,0.06) 0%, transparent 50%);
+            animation: heroGlow 15s ease-in-out infinite alternate;
+        }
+        @keyframes heroGlow { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-2%,2%) rotate(3deg); } }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-emoji { font-size: 4rem; margin-bottom: 1rem; }
+        .hero h1 {
+            font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 800;
+            color: var(--accent-light);
+            background: linear-gradient(135deg, var(--accent-light), var(--pink), var(--orange));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem; letter-spacing: -0.02em;
+        }
+        /* Fallback for browsers that don't support background-clip: text */
+        @supports not (background-clip: text) {
+            .hero h1 { -webkit-text-fill-color: unset; background: none; color: var(--accent-light); }
+        }
+        .hero-dates { font-size: 1.3rem; color: var(--text-muted); font-weight: 300; margin-bottom: 2rem; }
+        .hero-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2.5rem; }
+        .hero-tag { padding: 0.4rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 100px; font-size: 0.85rem; color: var(--text-muted); }
+        .scroll-hint { position: absolute; bottom: 2rem; animation: bounce 2s infinite; color: var(--text-muted); font-size: 0.85rem; }
+        @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+        /* Nav */
+        .nav { position: -webkit-sticky; position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.95); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 1rem; }
+        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+        .nav-inner::-webkit-scrollbar { display: none; }
+        .nav-link { padding: 1rem 1.2rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-light); border-bottom-color: var(--accent); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        .section { padding: 5rem 0; }
+        .section-header { margin-bottom: 3rem; }
+        .section-label { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: var(--accent-glow); padding: 0.3rem 0.8rem; border-radius: 100px; margin-bottom: 0.75rem; }
+        .section-title { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+        .section-subtitle { color: var(--text-muted); margin-top: 0.5rem; font-size: 1rem; }
+
+        /* Timeline */
+        .timeline { position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--pink), var(--orange), var(--green)); border-radius: 2px; }
+        .day-block { margin-bottom: 3rem; position: relative; }
+        .day-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem; position: relative; }
+        .day-dot { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; position: relative; z-index: 2; }
+        .day-dot.purple { background: var(--accent-glow); border: 2px solid var(--accent); }
+        .day-dot.pink { background: var(--pink-glow); border: 2px solid var(--pink); }
+        .day-dot.orange { background: var(--orange-glow); border: 2px solid var(--orange); }
+        .day-dot.green { background: var(--green-glow); border: 2px solid var(--green); }
+        .day-info h3 { font-size: 1.4rem; font-weight: 700; }
+        .day-info .day-meta { color: var(--text-muted); font-size: 0.85rem; }
+        .day-people { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--card); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 100px; font-size: 0.8rem; margin-left: 0.5rem; }
+        .events { margin-left: 74px; display: flex; flex-direction: column; gap: 1rem; }
+
+        /* Event cards */
+        .event-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all 0.3s; cursor: default; }
+        .event-card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateX(4px); }
+        .event-img { width: 100%; height: 200px; object-fit: cover; border-bottom: 1px solid var(--border); display: block; cursor: zoom-in; transition: filter 0.3s; }
+        .event-img:hover { filter: brightness(1.1); }
+        .event-body { padding: 1.25rem 1.5rem; }
+        .event-time { font-size: 0.8rem; font-weight: 600; color: var(--accent-light); margin-bottom: 0.3rem; font-variant-numeric: tabular-nums; }
+        .event-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .event-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+        .event-footer { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .event-badge { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; padding: 0.2rem 0.6rem; border-radius: 100px; font-weight: 500; }
+        .badge-price { background: rgba(52,211,153,0.1); color: var(--green); }
+        .badge-rating { background: rgba(251,146,60,0.1); color: var(--orange); }
+        .badge-time { background: rgba(108,99,255,0.1); color: var(--accent-light); }
+        .map-link { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--accent-light); text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.2s; }
+        .map-link:hover { color: var(--pink); }
+
+        /* Alt variant */
+        .alt-variant { margin-top: 0.75rem; background: rgba(108,99,255,0.05); border: 1px dashed var(--accent); border-radius: 12px; overflow: hidden; }
+        .alt-variant-body { padding: 1rem 1.25rem; }
+        .alt-img { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px dashed var(--accent); display: block; cursor: zoom-in; transition: filter 0.3s; }
+        .alt-img:hover { filter: brightness(1.1); }
+        .alt-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-light); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem; }
+        .alt-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .alt-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+
+        /* Tables */
+        .table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 2rem; }
+        .table-title { padding: 1.25rem 1.5rem; font-size: 1.1rem; font-weight: 700; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 0.85rem 1.25rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); background: var(--card); border-bottom: 1px solid var(--border); }
+        td { padding: 0.85rem 1.25rem; font-size: 0.9rem; border-bottom: 1px solid rgba(42,42,58,0.5); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: rgba(108,99,255,0.03); }
+        .rating-stars { color: var(--yellow); letter-spacing: 1px; }
+        .rating-num { color: var(--orange); font-weight: 600; }
+        .price-cell { color: var(--green); font-weight: 500; }
+        td a { color: var(--accent-light); text-decoration: none; }
+        td a:hover { text-decoration: underline; }
+        .table-img { width: 80px; height: 56px; object-fit: cover; border-radius: 8px; cursor: zoom-in; transition: filter 0.2s; display: block; }
+        .table-img:hover { filter: brightness(1.15); }
+        .td-name { display: flex; align-items: center; gap: 0.75rem; }
+        .td-name strong { white-space: nowrap; }
+
+        /* Info */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
+        .info-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: border-color 0.3s; }
+        .info-card:hover { border-color: var(--accent); }
+        .info-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1rem; }
+        .info-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .info-card p, .info-card ul { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+        .info-card ul { list-style: none; padding: 0; }
+        .info-card li::before { content: '\2192 '; color: var(--accent); }
+
+        /* Summary */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 3rem; }
+        .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; text-align: center; }
+        .summary-card .sc-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+        .summary-card .sc-label { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.25rem; }
+        .summary-card .sc-value { font-size: 1.5rem; font-weight: 700; }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .tab-btn { padding: 0.5rem 1.2rem; border: 1px solid var(--border); background: var(--card); color: var(--text-muted); border-radius: 100px; cursor: pointer; font-size: 0.85rem; font-family: inherit; font-weight: 500; transition: all 0.2s; }
+        .tab-btn:hover { border-color: var(--accent); color: var(--text); }
+        .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Logistics */
+        .logistics-bar { display: flex; align-items: stretch; gap: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 2rem; }
+        .logistics-item { flex: 1; padding: 1.25rem; background: var(--card); border-right: 1px solid var(--border); text-align: center; }
+        .logistics-item:last-child { border-right: none; }
+        .logistics-item .li-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .logistics-item .li-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem; }
+        .logistics-item .li-value { font-size: 0.95rem; font-weight: 600; }
+        .logistics-item .li-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Responsive */
+        /* Disable hover effects on touch devices */
+        @media (hover: none), (pointer: coarse) {
+            .event-card:hover { background: var(--card); border-color: var(--border); transform: none; }
+            .event-card:hover[style*="border-color"] { transform: none; }
+            .info-card:hover { border-color: var(--border); }
+            .event-img:hover { filter: none; }
+            .alt-img:hover { filter: none; }
+            .table-img:hover { filter: none; }
+        }
+
+        @media (max-width: 768px) {
+            /* Remove timeline line and dots on mobile */
+            .timeline::before { display: none; }
+            .day-dot { display: none; }
+            .events { margin-left: 0; }
+            .day-header { gap: 0.75rem; }
+            .logistics-bar { flex-direction: column; }
+            .info-grid { grid-template-columns: 1fr; }
+            .summary-grid { grid-template-columns: 1fr 1fr; }
+            .event-img { height: 160px; }
+            .table-img { width: 60px; height: 42px; }
+        }
+
+        /* Maps */
+        .maps-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .map-tab-btn {
+            padding: 0.6rem 1.4rem; border: 1px solid var(--border); background: var(--card);
+            color: var(--text-muted); border-radius: 100px; cursor: pointer;
+            font-size: 0.9rem; font-family: inherit; font-weight: 600; transition: all 0.2s;
+        }
+        .map-tab-btn:hover { border-color: var(--accent); color: var(--text); }
+        .map-tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .map-day { display: none; }
+        .map-day.active { display: block; }
+        .map-container {
+            width: 100%; height: 520px; border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border); margin-bottom: 1rem;
+        }
+        .map-legend {
+            display: flex; gap: 1rem; flex-wrap: wrap; padding: 1rem 0;
+        }
+        .map-legend-item {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.85rem; color: var(--text-muted);
+        }
+        .map-legend-dot {
+            width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+        }
+        .map-route-info {
+            background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+            padding: 1rem 1.25rem; margin-bottom: 1rem;
+            display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;
+        }
+        .map-route-stat { text-align: center; }
+        .map-route-stat .mrs-val { font-size: 1.2rem; font-weight: 700; }
+        .map-route-stat .mrs-label { font-size: 0.75rem; color: var(--text-muted); }
+        .map-stops {
+            display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;
+        }
+        .map-stop {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.88rem; color: var(--text-muted);
+        }
+        .map-stop-num {
+            width: 26px; height: 26px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 0.75rem;
+            font-weight: 700; color: #fff; flex-shrink: 0;
+        }
+        @media (max-width: 768px) {
+            .map-container { height: 380px; }
+        }
+
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .footer { text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0)); }
+
+        /* iOS / Telegram WebView fixes */
+        @supports (-webkit-touch-callout: none) {
+            /* iOS-specific: fix overflow issues in WebView */
+            body { -webkit-overflow-scrolling: touch; }
+            .nav-inner { -webkit-overflow-scrolling: touch; }
+            .table-wrapper { -webkit-overflow-scrolling: touch; }
+            /* Fix image rendering on iOS */
+            .event-img, .alt-img, .table-img { -webkit-transform: translateZ(0); transform: translateZ(0); }
+        }
+
+        /* Small screens (Telegram inline browser is often narrower) */
+        @media (max-width: 420px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-dates { font-size: 1rem; }
+            .hero-tags { gap: 0.4rem; }
+            .hero-tag { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+            .section-title { font-size: 1.5rem; }
+            .day-info h3 { font-size: 1.1rem; }
+            .event-body { padding: 1rem; }
+            .event-img { height: 140px; }
+            .alt-img { height: 110px; }
+            .map-container { height: 320px; }
+            .maps-tabs { gap: 0.35rem; }
+            .map-tab-btn { font-size: 0.75rem; padding: 0.5rem 0.8rem; }
+            .logistics-item { padding: 0.8rem 0.5rem; }
+            .logistics-item .li-value { font-size: 0.82rem; }
+            .info-grid { grid-template-columns: 1fr; }
+            .summary-grid { grid-template-columns: 1fr 1fr; }
+            .summary-card { padding: 1rem; }
+            .summary-card .sc-value { font-size: 1.2rem; }
+            td { padding: 0.6rem 0.75rem; font-size: 0.82rem; }
+            th { padding: 0.6rem 0.75rem; }
+            .table-img { width: 50px; height: 36px; }
+        }
+
+        /* Fix for Telegram browser that sometimes has issues with position:sticky */
+        @media screen and (max-width: 768px) {
+            .nav { position: -webkit-sticky; position: sticky; }
+        }
+
+        /* Disable animations in reduced-motion or slow browsers */
+        @media (prefers-reduced-motion: reduce) {
+            .fade-in { opacity: 1; transform: none; transition: none; }
+            .hero::before { animation: none; }
+            .scroll-hint { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lbClose">&times;</button>
+    <img id="lbImg" src="" alt="">
+    <div class="lightbox-caption" id="lbCaption"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-emoji">🏙️</div>
+        <h1>Минск</h1>
+        <div class="hero-dates">16 — 20 апреля 2026</div>
+        <div class="hero-tags">
+            <span class="hero-tag">👫 1 + 3</span>
+            <span class="hero-tag">🗓 5 дней / 4 ночи</span>
+            <span class="hero-tag">🍻 бары</span>
+            <span class="hero-tag">🌳 парки</span>
+            <span class="hero-tag">🍽 еда</span>
+            <span class="hero-tag">📸 архитектура</span>
+        </div>
+    </div>
+    <div class="scroll-hint">↓ листай вниз</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#overview" class="nav-link active">Обзор</a>
+        <a href="#day1" class="nav-link">16.04</a>
+        <a href="#day2" class="nav-link">17.04</a>
+        <a href="#day3" class="nav-link">18.04</a>
+        <a href="#day4" class="nav-link">19.04</a>
+        <a href="#day5" class="nav-link">20.04</a>
+        <a href="#places" class="nav-link">Места</a>
+        <a href="#maps" class="nav-link">Карты</a>
+        <a href="#info" class="nav-link">Полезное</a>
+    </div>
+</nav>
+
+<!-- OVERVIEW -->
+<section class="section" id="overview">
+    <div class="container">
+        <div class="section-header fade-in">
+            <span class="section-label">Обзор</span>
+            <h2 class="section-title">Логистика поездки</h2>
+        </div>
+        <div class="logistics-bar fade-in">
+            <div class="logistics-item"><div class="li-icon">🚂</div><div class="li-label">Приезд (двое)</div><div class="li-value">16 апреля, 13:16</div><div class="li-sub">Ты + подруга</div></div>
+            <div class="logistics-item"><div class="li-icon">🏠</div><div class="li-label">Квартира #1</div><div class="li-value">Мулявина бульв., 5</div><div class="li-sub">16.04 14:00 — 18.04 12:00</div></div>
+            <div class="logistics-item"><div class="li-icon">🚂</div><div class="li-label">Приезд (ещё двое)</div><div class="li-value">18 апреля, 08:57</div><div class="li-sub">+ 2 подруги</div></div>
+            <div class="logistics-item"><div class="li-icon">🏠</div><div class="li-label">Квартира #2</div><div class="li-value">Независимости пр., 19</div><div class="li-sub">18.04 15:00 — 20.04 12:00</div></div>
+            <div class="logistics-item"><div class="li-icon">🚂</div><div class="li-label">Отъезд (все)</div><div class="li-value">20 апреля, 15:59</div><div class="li-sub">4 человека</div></div>
+        </div>
+        <div class="summary-grid fade-in">
+            <div class="summary-card"><div class="sc-emoji">👥</div><div class="sc-label">Компания</div><div class="sc-value">4 человека</div></div>
+            <div class="summary-card"><div class="sc-emoji">🌡️</div><div class="sc-label">Погода в апреле</div><div class="sc-value">+8…+15°C</div></div>
+            <div class="summary-card"><div class="sc-emoji">💰</div><div class="sc-label">Курс BYN/RUB</div><div class="sc-value">~28-30 ₽</div></div>
+            <div class="summary-card"><div class="sc-emoji">🕐</div><div class="sc-label">Часовой пояс</div><div class="sc-value">UTC+3 (= Мск)</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- DAY 1 -->
+<section class="section" id="day1">
+<div class="container"><div class="timeline"><div class="day-block fade-in">
+    <div class="day-header">
+        <div class="day-dot purple">1</div>
+        <div class="day-info"><h3>Четверг, 16 апреля</h3><div class="day-meta">Приезд и знакомство с городом <span class="day-people">👫 2 чел.</span></div></div>
+    </div>
+    <div class="events">
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="Минский жд вокзал" loading="lazy" data-caption="Жд вокзал Минска">
+            <div class="event-body">
+                <div class="event-time">13:16</div>
+                <div class="event-title">🚂 Прибытие на ж/д вокзал</div>
+                <div class="event-desc">Привокзальная площадь — сама по себе достопримечательность. Берите такси через Яндекс Go до квартиры — ~150-200 ₽.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+жд+вокзал" target="_blank" class="map-link">📍 Яндекс Карты</a></div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">14:00</div>
+                <div class="event-title">🏠 Заселение — бульвар Мулявина, 5</div>
+                <div class="event-desc">Квартира на двоих. До Верхнего города ~15 мин пешком. Оставляете вещи, отдыхаете 30 минут.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+бульвар+Мулявина+5" target="_blank" class="map-link">📍 Яндекс Карты</a></div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Bahdanovi%C4%8Da_street_%E2%80%94_Trajeckaje_suburb_%28Minsk%29_1.jpg" alt="Троицкое предместье" loading="lazy" data-caption="Троицкое предместье">
+            <div class="event-body">
+                <div class="event-time">15:00 — 17:30</div>
+                <div class="event-title">🚶 Прогулка: Троицкое предместье → Остров Слёз</div>
+                <div class="event-desc">Старейший район Минска с цветными домиками на берегу Свислочи. Переходите на Остров Слёз — мемориал воинам-афганцам, очень атмосферное место.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.7</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Троицкое+предместье" target="_blank" class="map-link">📍 Троицкое</a>
+                    <a href="https://yandex.ru/maps/?text=Минск+Остров+слёз" target="_blank" class="map-link">📍 Остров Слёз</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Minsk_Gorky_park_gates.jpg" alt="Парк Горького" loading="lazy" data-caption="Парк Горького — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Парк Горького + набережная Свислочи</div>
+                        <div class="alt-desc">Более расслабленная прогулка — колесо обозрения (~250 ₽), потом вдоль набережной. Менее туристично, приятно вдвоём.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.5</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+парк+Горького" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Upper_Town%2C_Old_Town%2C_Minsk%2C_Belarus_%2828095255157%29.jpg" alt="Верхний город" loading="lazy" data-caption="Верхний город (Старый город)">
+            <div class="event-body">
+                <div class="event-time">17:30 — 19:00</div>
+                <div class="event-title">🏛 Верхний город (Старый город)</div>
+                <div class="event-desc">Площадь Свободы, Кафедральный собор, ратуша, узкие улочки с кафешками. Сердце исторического Минска.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.8</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Верхний+город+площадь+Свободы" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Old_handloom%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="Ресторан Литвины" loading="lazy" data-caption="Ресторан «Литвины» — белорусская кухня">
+            <div class="event-body">
+                <div class="event-time">19:00 — 20:30</div>
+                <div class="event-title">🍽 Ужин — ресторан «Литвины»</div>
+                <div class="event-desc">Белорусская кухня в интерьере средневекового замка. Драники, мачанка, бабка — must try. Отличные настойки.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.6</span>
+                    <span class="event-badge badge-price">💰 1200-1800 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Литвины" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Serving_of_lard_in_one_of_the_restaurants_in_Minsk%2C_Republic_of_Belarus.JPG" alt="Кухмистр" loading="lazy" data-caption="Ресторан «Кухмистр» — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Ресторан «Кухмистр»</div>
+                        <div class="alt-desc">Белорусская кухня в подвале с колоритной атмосферой. Суп в хлебе — фишка заведения. Чуть дешевле Литвинов.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.5</span>
+                            <span class="event-badge badge-price">💰 800-1400 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+ресторан+Кухмистр" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Зыбицкая" loading="lazy" data-caption="Улица Зыбицкая — барная улица Минска">
+            <div class="event-body">
+                <div class="event-time">21:00 — 23:00</div>
+                <div class="event-title">🍸 Вечер на Зыбицкой</div>
+                <div class="event-desc">Главная барная улица Минска. «Банки-Бутылки» (крафт) или «El Pushka» (коктейли). Не надо упарываться — основная программа впереди.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 500-900 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+улица+Зыбицкая" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0c/%D0%A2%D1%80%D0%B0%D0%B5%D1%86%D0%BA%D0%B0%D0%B5_%D0%BF%D1%80%D0%B0%D0%B4%D0%BC%D0%B5%D1%81%D1%86%D0%B5._%D0%B2%D1%83%D0%BB._%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D0%B2%D1%96%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B0%D1%8F._%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F_%D0%BD%D0%B0%D0%B1%D1%8F%D1%80%D1%8D%D0%B6%D0%BD%D0%B0%D1%8F_%2804%29.jpg" alt="Вечерний Минск" loading="lazy" data-caption="Бар «Тёмный» — speakeasy">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Бар «Тёмный» (speakeasy)</div>
+                        <div class="alt-desc">Камерный вечер вдвоём — тихий бар с приглушённым светом и авторскими коктейлями. Романтичнее шумной Зыбицкой.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.5</span>
+                            <span class="event-badge badge-price">💰 600-1000 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+бар+Тёмный" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div></div>
+</section>
+
+<!-- DAY 2 -->
+<section class="section" id="day2">
+<div class="container"><div class="timeline"><div class="day-block fade-in">
+    <div class="day-header">
+        <div class="day-dot pink">2</div>
+        <div class="day-info"><h3>Пятница, 17 апреля</h3><div class="day-meta">Проспект, парки и рынок <span class="day-people">👫 2 чел.</span></div></div>
+    </div>
+    <div class="events">
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Kamaro%C5%ADski_market_%28Minsk%2C_Belarus%29_%E2%80%94_%D0%9A%D0%B0%D0%BC%D0%B0%D1%80%D0%BE%D1%9E%D1%81%D0%BA%D1%96_%D1%80%D1%8B%D0%BD%D0%B0%D0%BA_%28%D0%9C%D1%96%D0%BD%D1%81%D0%BA%2C_%D0%91%D0%B5%D0%BB%D0%B0%D1%80%D1%83%D1%81%D1%8C%29_%E2%80%94_%D0%9A%D0%BE%D0%BC%D0%B0%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D1%80%D1%8B%D0%BD%D0%BE%D0%BA_%28%D0%9C%D0%B8%D0%BD%D1%81%D0%BA%2C_%D0%91%D0%B5%D0%BB%D0%B0%D1%80%D1%83%D1%81%D1%8C%29_-_1.jpg" alt="Комаровский рынок" loading="lazy" data-caption="Комаровский рынок">
+            <div class="event-body">
+                <div class="event-time">10:00 — 11:30</div>
+                <div class="event-title">☕ Завтрак + Комаровский рынок</div>
+                <div class="event-desc">Главный рынок города — сыры, мясные деликатесы, выпечка. Можно позавтракать прямо там.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 300-600 ₽</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Комаровский+рынок" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Minsk_Unabh%C3%A4ngigkeitsprospekt_1.JPG" alt="Проспект Независимости" loading="lazy" data-caption="Проспект Независимости — сталинский ампир">
+            <div class="event-body">
+                <div class="event-time">12:00 — 14:00</div>
+                <div class="event-title">🚶 Проспект Независимости пешком</div>
+                <div class="event-desc">Главная магистраль — 15 км сталинского ампира, список ЮНЕСКО. От площади Независимости до площади Победы.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.7</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+проспект+Независимости" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/8/86/Victory_square_minsk.jpg" alt="Площадь Победы" loading="lazy" data-caption="Пешеходная экскурсия по Минску">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Пешеходная экскурсия «Минск за 2 часа»</div>
+                        <div class="alt-desc">Экскурсия на Tripster или Sputnik8 (~1500 ₽/чел). Гид расскажет историю, покажет скрытые дворики.</div>
+                        <div class="event-footer"><span class="event-badge badge-price">💰 ~1500 ₽/чел</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Vasilki_Restaurant%2C_Minsk.JPG" alt="Васильки" loading="lazy" data-caption="Ресторан «Васильки»">
+            <div class="event-body">
+                <div class="event-time">14:00 — 15:00</div>
+                <div class="event-title">🍽 Обед — «Васильки»</div>
+                <div class="event-desc">Сетевой ресторан белорусской кухни — недорого и вкусно. Драники, колдуны, свекольник.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.4</span>
+                    <span class="event-badge badge-price">💰 600-1000 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Васильки" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Botanical_garden_Minsk_01.jpg" alt="Ботанический сад" loading="lazy" data-caption="Центральный ботанический сад">
+            <div class="event-body">
+                <div class="event-time">15:30 — 17:30</div>
+                <div class="event-title">🌿 Ботанический сад</div>
+                <div class="event-desc">Один из крупнейших в Европе. В апреле — магнолии, тюльпаны, первоцветы. Оранжереи с тропическими растениями.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.6</span>
+                    <span class="event-badge badge-price">💰 ~200 ₽ вход</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Центральный+ботанический+сад" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Park_Cheluskincev_at_Minsk.jpg" alt="Парк Челюскинцев" loading="lazy" data-caption="Парк Челюскинцев — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Парк Челюскинцев</div>
+                        <div class="alt-desc">Рядом с Ботсадом — хвойный парк с высокими соснами. Бесплатно, менее людно. Можно совместить оба.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.4</span>
+                            <span class="event-badge badge-price">бесплатно</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+парк+Челюскинцев" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/5_50_64_2f_-_Belarus_National_Library%2C_Minsk_2009_%283901618837%29.jpg" alt="Национальная библиотека" loading="lazy" data-caption="Национальная библиотека — здание-алмаз">
+            <div class="event-body">
+                <div class="event-time">18:00 — 19:30</div>
+                <div class="event-title">📚 Национальная библиотека — смотровая</div>
+                <div class="event-desc">Здание-алмаз. Смотровая на 23 этаже — панорама города. Особенно красиво на закате.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 ~120 ₽ вход</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Национальная+библиотека" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/20190526_152708_Restaurant_in_Galleria_Minsk.jpg" alt="Ресторан Simple" loading="lazy" data-caption="Ресторан «Simple» — авторская кухня">
+            <div class="event-body">
+                <div class="event-time">20:00 — 21:30</div>
+                <div class="event-title">🍽 Ужин — «Simple»</div>
+                <div class="event-desc">Модный ресторан с авторской европейской кухней. Стильный интерьер, красивая подача. Для ужина вдвоём.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.7</span>
+                    <span class="event-badge badge-price">💰 1500-2500 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Simple" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Manor_of_Wankowic_family_Minsk_Restaurant.JPG" alt="Грюнвальд" loading="lazy" data-caption="Ресторан «Грюнвальд» — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Ресторан «Грюнвальд»</div>
+                        <div class="alt-desc">Ресторан-пивоварня с живой музыкой по пятницам. Своё пиво + белорусская кухня. Менее пафосно.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.5</span>
+                            <span class="event-badge badge-price">💰 1000-1800 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+ресторан+Грюнвальд" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">22:00</div>
+                <div class="event-title">🍷 Вечер в квартире</div>
+                <div class="event-desc">Спокойный вечер — завтра рано встречать подруг. Вино и сыры с Комаровки.</div>
+            </div>
+        </div>
+    </div>
+</div></div></div>
+</section>
+
+<!-- DAY 3 -->
+<section class="section" id="day3">
+<div class="container"><div class="timeline"><div class="day-block fade-in">
+    <div class="day-header">
+        <div class="day-dot orange">3</div>
+        <div class="day-info"><h3>Суббота, 18 апреля</h3><div class="day-meta">Команда в сборе! Главный день. <span class="day-people">👥 4 чел.</span></div></div>
+    </div>
+    <div class="events">
+
+        <div class="event-card" style="border-color: var(--orange);">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="Вокзал" loading="lazy" data-caption="Встреча на вокзале">
+            <div class="event-body">
+                <div class="event-time">08:30</div>
+                <div class="event-title">⚡ Встреча подруг на вокзале</div>
+                <div class="event-desc">Поезд в 08:57. Кафе в здании вокзала — кофе, пока девчонки приходят в себя.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+жд+вокзал" target="_blank" class="map-link">📍 Яндекс Карты</a></div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Grand_Cafe%2C_2%2C_Lenin_str.%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="Кафе Stories" loading="lazy" data-caption="Кафе «Stories» — завтраки">
+            <div class="event-body">
+                <div class="event-time">09:30 — 11:00</div>
+                <div class="event-title">☕ Завтрак всей компанией — «Stories»</div>
+                <div class="event-desc">Кофейня с завтраками весь день. Авокадо-тосты, сырники, боулы, кофе. Популярно у молодёжи.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.6</span>
+                    <span class="event-badge badge-price">💰 500-800 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+кафе+Stories" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Minsk_after_snow_and_freezing_fog_%288216082579%29_%282%29.jpg" alt="Кофейня Зерно" loading="lazy" data-caption="Кофейня «Зерно» — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Кофейня «Зерно»</div>
+                        <div class="alt-desc">Лучший спешелти-кофе в Минске, своя обжарка. Быстрый перекус и идти гулять.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.7</span>
+                            <span class="event-badge badge-price">💰 200-400 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+кофейня+Зерно" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">11:00 — 12:00</div>
+                <div class="event-title">🏠 Выезд из квартиры #1</div>
+                <div class="event-desc">Вещи с Мулявина. Камера хранения на вокзале ~80-120 ₽ или с собой до 15:00.</div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Oktyabrskaya_street_Minsk_2a.jpg" alt="Октябрьская" loading="lazy" data-caption="Улица Октябрьская — креативный кластер">
+            <div class="event-body">
+                <div class="event-time">12:00 — 14:30</div>
+                <div class="event-title">🎨 Октябрьская улица (Кастрычніцкая)</div>
+                <div class="event-desc">Бывшая промзона → арт-пространство: граффити, бары, галереи, фуд-корты. Много фото-спотов.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.6</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+улица+Октябрьская" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Upper_Town%2C_Old_Town%2C_Minsk%2C_Belarus_%2828095255157%29.jpg" alt="Верхний город" loading="lazy" data-caption="Комаровка + Верхний город — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Комаровский рынок + Верхний город</div>
+                        <div class="alt-desc">Классический маршрут для подруг. Комаровка за продуктами, Верхний город за фото. Более «открыточный».</div>
+                        <div class="event-footer">
+                            <a href="https://yandex.ru/maps/?text=Минск+Верхний+город" target="_blank" class="map-link">📍 Верхний город</a>
+                            <a href="https://yandex.ru/maps/?text=Минск+Комаровский+рынок" target="_blank" class="map-link">📍 Комаровка</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">14:30</div>
+                <div class="event-title">🍽 Обед — «Лаўка» на Октябрьской</div>
+                <div class="event-desc">Фуд-холл — бургеры, вок, пицца, суши. Каждый выбирает что хочет.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.4</span>
+                    <span class="event-badge badge-price">💰 500-900 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Лаўка+Октябрьская" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">15:00 — 16:00</div>
+                <div class="event-title">🏠 Заселение — Независимости пр., 19</div>
+                <div class="event-desc">Квартира на четверых. Самый центр — до всего пешком.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+проспект+Независимости+19" target="_blank" class="map-link">📍 Яндекс Карты</a></div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Minsk_Gorky_park_gates.jpg" alt="Парк Горького" loading="lazy" data-caption="Парк Горького">
+            <div class="event-body">
+                <div class="event-time">16:30 — 18:30</div>
+                <div class="event-title">🌳 Парк Горького + набережная</div>
+                <div class="event-desc">Колесо обозрения (~250 ₽), аттракционы. Далее вдоль набережной Свислочи.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 вход бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+парк+Горького" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Bahdanovi%C4%8Da_street_%E2%80%94_Trajeckaje_suburb_%28Minsk%29_1.jpg" alt="Троицкое" loading="lazy" data-caption="Троицкое предместье — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Троицкое предместье + Остров Слёз</div>
+                        <div class="alt-desc">Подруги ещё не видели — сводите их. Место того стоит.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.7</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+Троицкое+предместье" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">19:00 — 21:00</div>
+                <div class="event-title">🍽 Ужин — «Грюнвальд»</div>
+                <div class="event-desc">Ресторан-пивоварня. Своё пиво + белорусская кухня. Большие порции, живая музыка по выходным.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 1000-1800 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Грюнвальд" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card" style="border-color: var(--pink);">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Зыбицкая" loading="lazy" data-caption="Бар-хоппинг по Зыбицкой — суббота!">
+            <div class="event-body">
+                <div class="event-time">21:30 — ∞</div>
+                <div class="event-title">🎉 Бар-хоппинг по Зыбицкой</div>
+                <div class="event-desc">Главный вечер! «Хулиган» → «Банки-Бутылки» → «Underbar». Зыбицкая в субботу — must do.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.7</span>
+                    <span class="event-badge badge-price">💰 800-1500 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+улица+Зыбицкая+бары" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Oktyabrskaya_street_Minsk_2a.jpg" alt="Октябрьская вечером" loading="lazy" data-caption="Бары на Октябрьской — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Октябрьская вечером</div>
+                        <div class="alt-desc">Бары на Октябрьской — более хипстерская атмосфера. «TNT Rock Club» для рока.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-price">💰 600-1200 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+улица+Октябрьская+бары" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div></div>
+</section>
+
+<!-- DAY 4 -->
+<section class="section" id="day4">
+<div class="container"><div class="timeline"><div class="day-block fade-in">
+    <div class="day-header">
+        <div class="day-dot green">4</div>
+        <div class="day-info"><h3>Воскресенье, 19 апреля</h3><div class="day-meta">Природа, шопинг и финальный вечер <span class="day-people">👥 4 чел.</span></div></div>
+    </div>
+    <div class="events">
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Barge_Restaurant_on_the_Svislach_River_in_Minsk_12_May_2014.jpg" alt="Лидо" loading="lazy" data-caption="Кафе «Лидо» — поздний завтрак">
+            <div class="event-body">
+                <div class="event-time">11:00 — 12:00</div>
+                <div class="event-title">☕ Поздний завтрак — «Лидо»</div>
+                <div class="event-desc">Самообслуживание — качественно и дёшево. Огромный выбор. Идеально после бурной ночи.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.3</span>
+                    <span class="event-badge badge-price">💰 300-500 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+кафе+Лидо" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">«Маша и Медведи» — кондитерская</div>
+                        <div class="alt-desc">Десерты, торты, капучино. Девчонкам понравится атмосфера. Менее сытно, но красиво.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.5</span>
+                            <span class="event-badge badge-price">💰 300-600 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+кафе+Маша+и+Медведи" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Belarus-Minsk-Loshytsa-Manor_of_Lubanski_Family-1.jpg" alt="Лошицкий парк" loading="lazy" data-caption="Лошицкий парк — усадьба">
+            <div class="event-body">
+                <div class="event-time">12:30 — 15:00</div>
+                <div class="event-title">🌳 Лошицкий парк</div>
+                <div class="event-desc">Лучший парк Минска. Усадьба, река, пруды. В апреле цветут яблони. ~20 мин на такси (~200 ₽).</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.8</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <span class="event-badge badge-time">🕐 ~2.5 ч</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Лошицкий+парк" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Botanical_garden_Minsk_01.jpg" alt="Ботсад" loading="lazy" data-caption="Ботанический сад — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Ботанический сад + парк Челюскинцев</div>
+                        <div class="alt-desc">Ближе к центру. Подруги его не видели, в апреле красиво. Рядом парк Челюскинцев с соснами.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.6</span>
+                            <span class="event-badge badge-price">💰 ~200 ₽</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+Центральный+ботанический+сад" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">15:30 — 16:30</div>
+                <div class="event-title">🍽 Обед — «Кухмистр»</div>
+                <div class="event-desc">Белорусская кухня в подвале. Мачанка, бульба, грибной суп в хлебе.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.5</span>
+                    <span class="event-badge badge-price">💰 800-1400 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Кухмистр" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Red_Church.jpg" alt="Красный костёл" loading="lazy" data-caption="Красный костёл (1910)">
+            <div class="event-body">
+                <div class="event-time">17:00 — 18:30</div>
+                <div class="event-title">🏛 Площадь Независимости + Красный костёл</div>
+                <div class="event-desc">Самая большая площадь Европы. Красный костёл — красного кирпича 1910 года. Маст-си для подруг.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.7</span>
+                    <span class="event-badge badge-price">бесплатно</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+Красный+костёл" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Independence-Lenin_Minsk_2.jpg" alt="ГУМ" loading="lazy" data-caption="ГУМ — советские универмаги">
+            <div class="event-body">
+                <div class="event-time">18:30 — 19:30</div>
+                <div class="event-title">🛍 ГУМ + ЦУМ</div>
+                <div class="event-desc">Белорусские сувениры: косметика Белита-Витэкс (дешевле чем в РФ), шоколад «Коммунарка», льняные изделия.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.2</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ГУМ" target="_blank" class="map-link">📍 ГУМ</a>
+                    <a href="https://yandex.ru/maps/?text=Минск+ЦУМ" target="_blank" class="map-link">📍 ЦУМ</a>
+                </div>
+                <div class="alt-variant">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">ТЦ «Галерея» или «Дана Молл»</div>
+                        <div class="alt-desc">Современный шопинг — привычные бренды + белорусские (Mark Formelle, Conte).</div>
+                        <div class="event-footer">
+                            <a href="https://yandex.ru/maps/?text=Минск+ТЦ+Галерея" target="_blank" class="map-link">📍 Галерея</a>
+                            <a href="https://yandex.ru/maps/?text=Минск+Дана+Молл" target="_blank" class="map-link">📍 Дана Молл</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card" style="border-color: var(--pink);">
+            <div class="event-body">
+                <div class="event-time">20:00 — 22:00</div>
+                <div class="event-title">🍽 Прощальный ужин — «Бессонница»</div>
+                <div class="event-desc">Авторская кухня и отличный бар. Красивый интерьер для финального ужина. Бронируйте заранее!</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.6</span>
+                    <span class="event-badge badge-price">💰 1500-2500 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+ресторан+Бессонница" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <img class="alt-img" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Old_handloom%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="Литвины" loading="lazy" data-caption="Ресторан «Литвины» — альтернатива">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">Ресторан «Литвины»</div>
+                        <div class="alt-desc">Если вам понравилось в первый день — сводите всю компанию. Подруги оценят колорит.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-rating">⭐ 4.6</span>
+                            <span class="event-badge badge-price">💰 1200-1800 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+ресторан+Литвины" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">22:30</div>
+                <div class="event-title">🍷 Вечер в квартире / лёгкий бар</div>
+                <div class="event-desc">Вино и настолки в квартире, или «Бар Тёмный» (speakeasy). Завтра чекаут в 12:00.</div>
+                <div class="event-footer"><span class="event-badge badge-price">💰 500-800 ₽/чел</span></div>
+            </div>
+        </div>
+    </div>
+</div></div></div>
+</section>
+
+<!-- DAY 5 -->
+<section class="section" id="day5">
+<div class="container"><div class="timeline"><div class="day-block fade-in">
+    <div class="day-header">
+        <div class="day-dot purple">5</div>
+        <div class="day-info"><h3>Понедельник, 20 апреля</h3><div class="day-meta">Последние часы и отъезд <span class="day-people">👥 4 чел.</span></div></div>
+    </div>
+    <div class="events">
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">09:00 — 10:30</div>
+                <div class="event-title">☕ Завтрак</div>
+                <div class="event-desc">Лёгкий завтрак перед сборами. Белорусские пончики и кофе.</div>
+                <div class="event-footer"><span class="event-badge badge-price">💰 300-500 ₽/чел</span></div>
+            </div>
+        </div>
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0b/%D0%9A%D0%B0%D0%BC%D1%83%D0%BD%D0%B0%D1%80%D0%BA%D0%B0._%D0%A8%D0%B0%D0%BA%D0%B0%D0%BB%D0%B0%D0%B4%D0%BD%D1%8B_%D0%B1%D0%B0%D1%82%D0%BE%D0%BD%D1%87%D1%8B%D0%BA.jpg" alt="Коммунарка" loading="lazy" data-caption="Шоколад «Коммунарка» — привезти домой">
+            <div class="event-body">
+                <div class="event-time">10:30 — 12:00</div>
+                <div class="event-title">🛍 Сувениры + прогулка</div>
+                <div class="event-desc">Магазин «Коммунарка» (шоколад), белорусский лён, магниты. Последняя прогулка по проспекту.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+фирменный+магазин+Коммунарка" target="_blank" class="map-link">📍 Коммунарка</a></div>
+            </div>
+        </div>
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">12:00</div>
+                <div class="event-title">🏠 Чекаут из квартиры</div>
+                <div class="event-desc">Вещи в камеру хранения на вокзале (~80-120 ₽).</div>
+            </div>
+        </div>
+        <div class="event-card">
+            <div class="event-body">
+                <div class="event-time">12:30 — 14:00</div>
+                <div class="event-title">🍽 Обед — «Garage Food & Drink»</div>
+                <div class="event-desc">Бургеры, пасты, салаты — быстро и вкусно. Рядом с вокзалом.</div>
+                <div class="event-footer">
+                    <span class="event-badge badge-rating">⭐ 4.4</span>
+                    <span class="event-badge badge-price">💰 600-1000 ₽/чел</span>
+                    <a href="https://yandex.ru/maps/?text=Минск+кафе+Garage+Food" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                </div>
+                <div class="alt-variant">
+                    <div class="alt-variant-body">
+                        <div class="alt-label">🔄 Второй вариант</div>
+                        <div class="alt-title">«Лидо» рядом с вокзалом</div>
+                        <div class="alt-desc">Бюджетно и быстро — 300-500 ₽ на человека.</div>
+                        <div class="event-footer">
+                            <span class="event-badge badge-price">💰 300-500 ₽/чел</span>
+                            <a href="https://yandex.ru/maps/?text=Минск+Лидо" target="_blank" class="map-link">📍 Яндекс Карты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="event-card">
+            <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="Вокзал" loading="lazy" data-caption="Вокзал — время домой">
+            <div class="event-body">
+                <div class="event-time">14:30</div>
+                <div class="event-title">🚂 На вокзал</div>
+                <div class="event-desc">Заранее — купить воду и перекус. «Табакерка» — подземный ТЦ под вокзалом.</div>
+                <div class="event-footer"><a href="https://yandex.ru/maps/?text=Минск+жд+вокзал" target="_blank" class="map-link">📍 Яндекс Карты</a></div>
+            </div>
+        </div>
+        <div class="event-card" style="border-color: var(--green);">
+            <div class="event-body">
+                <div class="event-time">15:59</div>
+                <div class="event-title">🚂 Отъезд</div>
+                <div class="event-desc">Поехали домой! 🫶</div>
+            </div>
+        </div>
+    </div>
+</div></div></div>
+</section>
+
+<!-- PLACES TABLES -->
+<section class="section" id="places">
+<div class="container">
+    <div class="section-header fade-in">
+        <span class="section-label">Справочник</span>
+        <h2 class="section-title">Все места</h2>
+        <div class="section-subtitle">Рейтинги, средние чеки и ссылки на карты</div>
+    </div>
+    <div class="tabs" id="placeTabs">
+        <button class="tab-btn active" data-tab="restaurants">🍽 Рестораны</button>
+        <button class="tab-btn" data-tab="bars">🍻 Бары</button>
+        <button class="tab-btn" data-tab="cafes">☕ Кафе</button>
+        <button class="tab-btn" data-tab="parks">🌳 Парки</button>
+        <button class="tab-btn" data-tab="sights">🏛 Достопримечательности</button>
+    </div>
+
+    <!-- Restaurants -->
+    <div class="tab-content active" id="tab-restaurants">
+        <div class="table-wrapper fade-in"><div class="table-title">🍽 Рестораны</div>
+        <table><thead><tr><th>Фото</th><th>Название</th><th>Кухня</th><th>Рейтинг</th><th>Ср. чек</th><th>Фишка</th><th>📍</th></tr></thead>
+        <tbody>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Old_handloom%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="Литвины" loading="lazy" data-caption="Ресторан «Литвины»"></td><td><strong>Литвины</strong></td><td>Белорусская</td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">1200-1800 ₽</td><td>Средневековый интерьер, драники</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Литвины" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Manor_of_Wankowic_family_Minsk_Restaurant.JPG" alt="Грюнвальд" loading="lazy" data-caption="Ресторан «Грюнвальд»"></td><td><strong>Грюнвальд</strong></td><td>Белорусская / Европа</td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">1000-1800 ₽</td><td>Своя пивоварня, музыка</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Грюнвальд" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/3/32/Vasilki_Restaurant%2C_Minsk.JPG" alt="Васильки" loading="lazy" data-caption="Ресторан «Васильки»"></td><td><strong>Васильки</strong></td><td>Белорусская</td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">600-1000 ₽</td><td>Сетевой, большие порции</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Васильки" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7e/20190526_152708_Restaurant_in_Galleria_Minsk.jpg" alt="Simple" loading="lazy" data-caption="Ресторан «Simple»"></td><td><strong>Simple</strong></td><td>Европейская авторская</td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">1500-2500 ₽</td><td>Стильно, красивая подача</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Simple" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Serving_of_lard_in_one_of_the_restaurants_in_Minsk%2C_Republic_of_Belarus.JPG" alt="Кухмистр" loading="lazy" data-caption="Ресторан «Кухмистр»"></td><td><strong>Кухмистр</strong></td><td>Белорусская</td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">800-1400 ₽</td><td>Подвал, суп в хлебе</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Кухмистр" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/4376_Embankment_of_the_Svisla%C4%8D_River_in_Minsk_May_2019.jpg" alt="Бессонница" loading="lazy" data-caption="Ресторан «Бессонница»"></td><td><strong>Бессонница</strong></td><td>Авторская / Fusion</td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">1500-2500 ₽</td><td>Атмосфера, коктейли</td><td><a href="https://yandex.ru/maps/?text=Минск+ресторан+Бессонница" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/2/22/Barge_Restaurant_on_the_Svislach_River_in_Minsk_12_May_2014.jpg" alt="Лидо" loading="lazy" data-caption="Кафе «Лидо»"></td><td><strong>Лидо</strong></td><td>Столовая-буфет</td><td><span class="rating-num">4.3</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">300-500 ₽</td><td>Дёшево, огромный выбор</td><td><a href="https://yandex.ru/maps/?text=Минск+Лидо" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Minsk-Pasa%C5%BEyrski_%28Passenger%29_railway_station_p01.jpg" alt="Garage" loading="lazy" data-caption="Garage Food & Drink"></td><td><strong>Garage Food</strong></td><td>Бургеры / Европа</td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">600-1000 ₽</td><td>Рядом с вокзалом</td><td><a href="https://yandex.ru/maps/?text=Минск+кафе+Garage+Food" target="_blank">📍</a></td></tr>
+        </tbody></table></div>
+    </div>
+
+    <!-- Bars -->
+    <div class="tab-content" id="tab-bars">
+        <div class="table-wrapper fade-in"><div class="table-title">🍻 Бары и клубы</div>
+        <table><thead><tr><th>Фото</th><th>Название</th><th>Тип</th><th>Рейтинг</th><th>Ср. чек</th><th>Фишка</th><th>📍</th></tr></thead>
+        <tbody>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Хулиган" loading="lazy" data-caption="Бар «Хулиган»"></td><td><strong>Хулиган</strong></td><td>Коктейльный</td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">800-1500 ₽</td><td>Коктейли, DJ, танцы</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Хулиган+Зыбицкая" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Банки-Бутылки" loading="lazy" data-caption="Бар «Банки-Бутылки»"></td><td><strong>Банки-Бутылки</strong></td><td>Крафтовый</td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">500-900 ₽</td><td>Крафт, десятки сортов</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Банки+Бутылки" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0c/%D0%A2%D1%80%D0%B0%D0%B5%D1%86%D0%BA%D0%B0%D0%B5_%D0%BF%D1%80%D0%B0%D0%B4%D0%BC%D0%B5%D1%81%D1%86%D0%B5._%D0%B2%D1%83%D0%BB._%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D0%B2%D1%96%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B0%D1%8F._%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F_%D0%BD%D0%B0%D0%B1%D1%8F%D1%80%D1%8D%D0%B6%D0%BD%D0%B0%D1%8F_%2804%29.jpg" alt="El Pushka" loading="lazy" data-caption="Бар «El Pushka»"></td><td><strong>El Pushka</strong></td><td>Коктейльный</td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">600-1200 ₽</td><td>Уютно, авторские</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+El+Pushka" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Underbar" loading="lazy" data-caption="Бар «Underbar»"></td><td><strong>Underbar</strong></td><td>Андерграунд</td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">500-1000 ₽</td><td>Электронная музыка</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Underbar" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/0/0c/%D0%A2%D1%80%D0%B0%D0%B5%D1%86%D0%BA%D0%B0%D0%B5_%D0%BF%D1%80%D0%B0%D0%B4%D0%BC%D0%B5%D1%81%D1%86%D0%B5._%D0%B2%D1%83%D0%BB._%D0%A1%D1%82%D0%B0%D1%80%D0%B0%D0%B2%D1%96%D0%BB%D0%B5%D0%BD%D1%81%D0%BA%D0%B0%D1%8F._%D0%9D%D0%BE%D0%B2%D0%B0%D1%8F_%D0%BD%D0%B0%D0%B1%D1%8F%D1%80%D1%8D%D0%B6%D0%BD%D0%B0%D1%8F_%2804%29.jpg" alt="Тёмный" loading="lazy" data-caption="Бар «Тёмный»"></td><td><strong>Бар Тёмный</strong></td><td>Speakeasy</td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">600-1000 ₽</td><td>Тихий, приглушённый</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Тёмный" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ulitsa_Zybitskaya_Minsk.JPG" alt="Stayin Alive" loading="lazy" data-caption="Бар Stayin' Alive"></td><td><strong>Stayin' Alive</strong></td><td>Музыкальный</td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">600-1200 ₽</td><td>Живая музыка, ретро</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Stayin+Alive" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Oktyabrskaya_street_Minsk_2a.jpg" alt="Чердак" loading="lazy" data-caption="Бар «Чердак»"></td><td><strong>Чердак</strong></td><td>Бар-клуб</td><td><span class="rating-num">4.3</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">500-1000 ₽</td><td>Крыша, караоке</td><td><a href="https://yandex.ru/maps/?text=Минск+бар+Чердак" target="_blank">📍</a></td></tr>
+        </tbody></table></div>
+    </div>
+
+    <!-- Cafes -->
+    <div class="tab-content" id="tab-cafes">
+        <div class="table-wrapper fade-in"><div class="table-title">☕ Кофейни и завтраки</div>
+        <table><thead><tr><th>Фото</th><th>Название</th><th>Тип</th><th>Рейтинг</th><th>Ср. чек</th><th>Фишка</th><th>📍</th></tr></thead>
+        <tbody>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Grand_Cafe%2C_2%2C_Lenin_str.%2C_Minsk_-_the_capital_of_Republic_of_Belarus.JPG" alt="Stories" loading="lazy" data-caption="Кафе «Stories»"></td><td><strong>Stories</strong></td><td>Кофейня / Завтраки</td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">500-800 ₽</td><td>Завтраки весь день</td><td><a href="https://yandex.ru/maps/?text=Минск+кафе+Stories" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Minsk_after_snow_and_freezing_fog_%288216082579%29_%282%29.jpg" alt="Зерно" loading="lazy" data-caption="Кофейня «Зерно»"></td><td><strong>Зерно</strong></td><td>Спешелти-кофейня</td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">200-400 ₽</td><td>Лучший кофе, обжарка</td><td><a href="https://yandex.ru/maps/?text=Минск+кофейня+Зерно" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Oktyabrskaya_street_Minsk_2a.jpg" alt="Лаўка" loading="lazy" data-caption="Фуд-холл «Лаўка»"></td><td><strong>Лаўка</strong></td><td>Фуд-холл</td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">500-900 ₽</td><td>На Октябрьской</td><td><a href="https://yandex.ru/maps/?text=Минск+Лаўка+Октябрьская" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Apartment_buildings_over_Svisloch_river_in_Minsk.jpg" alt="Маша и Медведи" loading="lazy" data-caption="Кондитерская «Маша и Медведи»"></td><td><strong>Маша и Медведи</strong></td><td>Кондитерская</td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">300-600 ₽</td><td>Десерты, торты</td><td><a href="https://yandex.ru/maps/?text=Минск+кафе+Маша+и+Медведи" target="_blank">📍</a></td></tr>
+        </tbody></table></div>
+    </div>
+
+    <!-- Parks -->
+    <div class="tab-content" id="tab-parks">
+        <div class="table-wrapper fade-in"><div class="table-title">🌳 Парки и природа</div>
+        <table><thead><tr><th>Фото</th><th>Название</th><th>Рейтинг</th><th>Вход</th><th>Время</th><th>Фишка</th><th>📍</th></tr></thead>
+        <tbody>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Belarus-Minsk-Loshytsa-Manor_of_Lubanski_Family-1.jpg" alt="Лошицкий" loading="lazy" data-caption="Лошицкий парк"></td><td><strong>Лошицкий парк</strong></td><td><span class="rating-num">4.8</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>2-3 ч</td><td>Усадьба, река, яблони</td><td><a href="https://yandex.ru/maps/?text=Минск+Лошицкий+парк" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/6/69/Botanical_garden_Minsk_01.jpg" alt="Ботсад" loading="lazy" data-caption="Ботанический сад"></td><td><strong>Ботанический сад</strong></td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">~200 ₽</td><td>1.5-2 ч</td><td>Оранжереи, цветение</td><td><a href="https://yandex.ru/maps/?text=Минск+ботанический+сад" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Minsk_Gorky_park_gates.jpg" alt="Горького" loading="lazy" data-caption="Парк Горького"></td><td><strong>Парк Горького</strong></td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>1-2 ч</td><td>Колесо обозрения</td><td><a href="https://yandex.ru/maps/?text=Минск+парк+Горького" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Park_Cheluskincev_at_Minsk.jpg" alt="Челюскинцев" loading="lazy" data-caption="Парк Челюскинцев"></td><td><strong>Челюскинцев</strong></td><td><span class="rating-num">4.4</span> <span class="rating-stars">★★★★☆</span></td><td class="price-cell">бесплатно</td><td>1 ч</td><td>Сосны, тишина</td><td><a href="https://yandex.ru/maps/?text=Минск+парк+Челюскинцев" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/4376_Embankment_of_the_Svisla%C4%8D_River_in_Minsk_May_2019.jpg" alt="Свислочь" loading="lazy" data-caption="Набережная Свислочи"></td><td><strong>Набережная Свислочи</strong></td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>1-2 ч</td><td>Вдоль реки, мосты</td><td><a href="https://yandex.ru/maps/?text=Минск+набережная+Свислочи" target="_blank">📍</a></td></tr>
+        </tbody></table></div>
+    </div>
+
+    <!-- Sights -->
+    <div class="tab-content" id="tab-sights">
+        <div class="table-wrapper fade-in"><div class="table-title">🏛 Достопримечательности</div>
+        <table><thead><tr><th>Фото</th><th>Название</th><th>Рейтинг</th><th>Вход</th><th>Время</th><th>Фишка</th><th>📍</th></tr></thead>
+        <tbody>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/8/87/Upper_Town%2C_Old_Town%2C_Minsk%2C_Belarus_%2828095255157%29.jpg" alt="Верхний город" loading="lazy" data-caption="Верхний город"></td><td><strong>Верхний город</strong></td><td><span class="rating-num">4.8</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>1.5-2 ч</td><td>Историческое сердце</td><td><a href="https://yandex.ru/maps/?text=Минск+Верхний+город" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Bahdanovi%C4%8Da_street_%E2%80%94_Trajeckaje_suburb_%28Minsk%29_1.jpg" alt="Троицкое" loading="lazy" data-caption="Троицкое предместье"></td><td><strong>Троицкое предместье</strong></td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>1 ч</td><td>Цветные домики</td><td><a href="https://yandex.ru/maps/?text=Минск+Троицкое+предместье" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Red_Church.jpg" alt="Красный костёл" loading="lazy" data-caption="Красный костёл"></td><td><strong>Красный костёл</strong></td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>30 мин</td><td>Кирпич 1910 года</td><td><a href="https://yandex.ru/maps/?text=Минск+Красный+костёл" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/a/ad/5_50_64_2f_-_Belarus_National_Library%2C_Minsk_2009_%283901618837%29.jpg" alt="Библиотека" loading="lazy" data-caption="Национальная библиотека"></td><td><strong>Нац. библиотека</strong></td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">~120 ₽</td><td>1 ч</td><td>Здание-алмаз, 23 этаж</td><td><a href="https://yandex.ru/maps/?text=Минск+Национальная+библиотека" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Belarus_3970_-_Island_of_Tears_%284188614863%29.jpg" alt="Остров Слёз" loading="lazy" data-caption="Остров Слёз"></td><td><strong>Остров Слёз</strong></td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>30 мин</td><td>Мемориал</td><td><a href="https://yandex.ru/maps/?text=Минск+Остров+слёз" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/4/49/Panorama_view_Niezalie%C5%BEnasci_Square_Minsk.JPG" alt="Пл. Независимости" loading="lazy" data-caption="Площадь Независимости"></td><td><strong>Пл. Независимости</strong></td><td><span class="rating-num">4.5</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>30 мин</td><td>Крупнейшая в Европе</td><td><a href="https://yandex.ru/maps/?text=Минск+площадь+Независимости" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/6/68/Oktyabrskaya_street_Minsk_2a.jpg" alt="Октябрьская" loading="lazy" data-caption="Улица Октябрьская"></td><td><strong>Ул. Октябрьская</strong></td><td><span class="rating-num">4.6</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>2-3 ч</td><td>Граффити, бары</td><td><a href="https://yandex.ru/maps/?text=Минск+улица+Октябрьская" target="_blank">📍</a></td></tr>
+            <tr><td><img class="table-img" src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Minsk_Unabh%C3%A4ngigkeitsprospekt_1.JPG" alt="Проспект" loading="lazy" data-caption="Проспект Независимости"></td><td><strong>Пр. Независимости</strong></td><td><span class="rating-num">4.7</span> <span class="rating-stars">★★★★★</span></td><td class="price-cell">бесплатно</td><td>2-3 ч</td><td>Сталинский ампир</td><td><a href="https://yandex.ru/maps/?text=Минск+проспект+Независимости" target="_blank">📍</a></td></tr>
+        </tbody></table></div>
+    </div>
+</div>
+</section>
+
+<!-- MAPS -->
+<section class="section" id="maps">
+<div class="container">
+    <div class="section-header fade-in">
+        <span class="section-label" style="background: var(--orange-glow); color: var(--orange);">Маршруты</span>
+        <h2 class="section-title">Карты по дням</h2>
+        <div class="section-subtitle">Интерактивные маршруты с точками на каждый день</div>
+    </div>
+
+    <div class="maps-tabs">
+        <button class="map-tab-btn active" data-day="1">🟣 День 1 — 16.04</button>
+        <button class="map-tab-btn" data-day="2">🩷 День 2 — 17.04</button>
+        <button class="map-tab-btn" data-day="3">🟠 День 3 — 18.04</button>
+        <button class="map-tab-btn" data-day="4">🟢 День 4 — 19.04</button>
+        <button class="map-tab-btn" data-day="5">🟣 День 5 — 20.04</button>
+    </div>
+
+    <div class="map-day active" id="map-day-1">
+        <div class="map-route-info">
+            <div class="map-route-stat"><div class="mrs-val">6</div><div class="mrs-label">точек</div></div>
+            <div class="map-route-stat"><div class="mrs-val">~6 км</div><div class="mrs-label">пешком</div></div>
+            <div class="map-route-stat"><div class="mrs-val">👫 2 чел.</div><div class="mrs-label">компания</div></div>
+        </div>
+        <div class="map-container" id="ymap-1"></div>
+        <div class="map-stops">
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">1</div> Жд вокзал → такси</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">2</div> Квартира, бульвар Мулявина 5</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">3</div> Троицкое предместье + Остров Слёз</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">4</div> Верхний город</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">5</div> Ресторан «Литвины»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">6</div> Зыбицкая — бары</div>
+        </div>
+    </div>
+
+    <div class="map-day" id="map-day-2">
+        <div class="map-route-info">
+            <div class="map-route-stat"><div class="mrs-val">7</div><div class="mrs-label">точек</div></div>
+            <div class="map-route-stat"><div class="mrs-val">~10 км</div><div class="mrs-label">пешком</div></div>
+            <div class="map-route-stat"><div class="mrs-val">👫 2 чел.</div><div class="mrs-label">компания</div></div>
+        </div>
+        <div class="map-container" id="ymap-2"></div>
+        <div class="map-stops">
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">1</div> Комаровский рынок</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">2</div> Проспект Независимости (пешком)</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">3</div> Ресторан «Васильки»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">4</div> Ботанический сад</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">5</div> Национальная библиотека</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">6</div> Ресторан «Simple»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#f472b6">7</div> Квартира (отдых)</div>
+        </div>
+    </div>
+
+    <div class="map-day" id="map-day-3">
+        <div class="map-route-info">
+            <div class="map-route-stat"><div class="mrs-val">9</div><div class="mrs-label">точек</div></div>
+            <div class="map-route-stat"><div class="mrs-val">~8 км</div><div class="mrs-label">пешком</div></div>
+            <div class="map-route-stat"><div class="mrs-val">👥 4 чел.</div><div class="mrs-label">компания</div></div>
+        </div>
+        <div class="map-container" id="ymap-3"></div>
+        <div class="map-stops">
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">1</div> Жд вокзал (встреча)</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">2</div> Кафе «Stories» — завтрак</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">3</div> Выезд: бульвар Мулявина 5</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">4</div> Улица Октябрьская</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">5</div> Заселение: пр. Независимости 19</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">6</div> Парк Горького</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">7</div> Набережная Свислочи</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">8</div> Ресторан «Грюнвальд»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#fb923c">9</div> Зыбицкая — бар-хоппинг</div>
+        </div>
+    </div>
+
+    <div class="map-day" id="map-day-4">
+        <div class="map-route-info">
+            <div class="map-route-stat"><div class="mrs-val">7</div><div class="mrs-label">точек</div></div>
+            <div class="map-route-stat"><div class="mrs-val">~5 км + такси</div><div class="mrs-label">пешком</div></div>
+            <div class="map-route-stat"><div class="mrs-val">👥 4 чел.</div><div class="mrs-label">компания</div></div>
+        </div>
+        <div class="map-container" id="ymap-4"></div>
+        <div class="map-stops">
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">1</div> Кафе «Лидо» — завтрак</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">2</div> Лошицкий парк (такси)</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">3</div> Ресторан «Кухмистр»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">4</div> Красный костёл + пл. Независимости</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">5</div> ГУМ / ЦУМ</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">6</div> Ресторан «Бессонница»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#34d399">7</div> Квартира (отдых)</div>
+        </div>
+    </div>
+
+    <div class="map-day" id="map-day-5">
+        <div class="map-route-info">
+            <div class="map-route-stat"><div class="mrs-val">5</div><div class="mrs-label">точек</div></div>
+            <div class="map-route-stat"><div class="mrs-val">~3 км</div><div class="mrs-label">пешком</div></div>
+            <div class="map-route-stat"><div class="mrs-val">👥 4 чел.</div><div class="mrs-label">компания</div></div>
+        </div>
+        <div class="map-container" id="ymap-5"></div>
+        <div class="map-stops">
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">1</div> Квартира (чекаут)</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">2</div> Магазин «Коммунарка» (сувениры)</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">3</div> Обед — «Garage Food»</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">4</div> Жд вокзал</div>
+            <div class="map-stop"><div class="map-stop-num" style="background:#6c63ff">5</div> 🚂 Отъезд 15:59</div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- INFO -->
+<section class="section" id="info">
+<div class="container">
+    <div class="section-header fade-in">
+        <span class="section-label" style="background: var(--green-glow); color: var(--green);">Полезное</span>
+        <h2 class="section-title">Что нужно знать россиянину в Беларуси</h2>
+        <div class="section-subtitle">Практическая информация на апрель 2026</div>
+    </div>
+    <div class="info-grid fade-in">
+        <div class="info-card"><div class="info-icon" style="background: var(--accent-glow);">🛂</div><h4>Въезд и документы</h4><ul><li>Виза не нужна — въезд по внутреннему паспорту РФ</li><li>Загранпаспорт НЕ нужен</li><li>Погранконтроль в вагоне поезда</li><li>Регистрация не нужна до 30 дней</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: var(--green-glow);">💳</div><h4>Оплата и деньги</h4><ul><li>Карты «Мир» принимают практически везде</li><li>Валюта — BYN, 1 BYN ≈ 28-30 ₽</li><li>Банкоматы: Беларусбанк, Белагропромбанк</li><li>Visa/Mastercard российских банков НЕ работают</li><li>Наличные ₽ можно обменять в обменниках</li><li>Apple Pay / Google Pay не работают</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: var(--pink-glow);">📱</div><h4>Связь и SIM-карты</h4><ul><li>Операторы: A1, МТС (Беларусь), life:)</li><li>SIM: ~300-500 ₽ за 5-10 ГБ</li><li>Купить по российскому паспорту в салонах</li><li>Роуминг дорогой — берите местную</li><li>Wi-Fi в кафе, ресторанах, метро</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: var(--orange-glow);">🚕</div><h4>Транспорт</h4><ul><li>Яндекс Go работает — такси от 100 ₽</li><li>Метро: 2 линии, жетон ~25 ₽</li><li>Автобусы/троллейбусы — ~25 ₽</li><li>Пешком по центру комфортно</li><li>Каршеринг Anytime с российскими правами</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: rgba(34,211,238,0.15);">🗣</div><h4>Язык и общение</h4><ul><li>Все говорят по-русски</li><li>Вывески на белорусском — разобраться легко</li><li>Дружелюбны к россиянам</li><li>Бульба = картошка, краса = красота</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: rgba(248,113,113,0.15);">⚠️</div><h4>Важные нюансы</h4><ul><li>Курение запрещено в общественных местах</li><li>Штрафы за переход — реальные</li><li>Город очень чистый</li><li>Алкоголь в магазинах до 23:00</li><li>Аптеки работают как в РФ</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: var(--accent-glow);">🎁</div><h4>Что привезти</h4><ul><li>Шоколад «Коммунарка» / «Спартак» — дешевле в 2 раза</li><li>Косметика Белита-Витэкс</li><li>Трикотаж Mark Formelle, Conte</li><li>Льняные изделия</li><li>Настойки — «Беловежская», зубровка</li><li>Сыры и колбасы (поездом)</li></ul></div>
+        <div class="info-card"><div class="info-icon" style="background: var(--green-glow);">🌤</div><h4>Погода в апреле</h4><ul><li>+8…+15°C днём, +2…+6°C ночью</li><li>Куртка, зонт, удобная обувь</li><li>Возможны дожди</li><li>Вечером прохладно — шарф не помешает</li></ul></div>
+    </div>
+</div>
+</section>
+
+<div class="footer"><p>Минск 2026 · 16-20 апреля · сделано с 💜</p></div>
+
+<script>
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+
+    document.addEventListener('click', e => {
+        const img = e.target.closest('.event-img, .alt-img, .table-img');
+        if (img) {
+            e.stopPropagation();
+            lbImg.src = img.src;
+            lbCaption.textContent = img.dataset.caption || img.alt || '';
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    function closeLb() {
+        lb.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    lb.addEventListener('click', closeLb);
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    lbImg.addEventListener('click', e => e.stopPropagation());
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tab = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+        });
+    });
+
+    // Scroll animations (with fallback for Telegram WebView)
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    } else {
+        // Fallback: show everything immediately
+        document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    }
+
+    // Extra fallback: if nothing is visible after 2s, force show all
+    setTimeout(() => {
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
+    }, 2000);
+
+    // Active nav
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => { if (scrollY >= s.offsetTop - 100) current = s.id; });
+        document.querySelectorAll('.nav-link').forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+        });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.preventDefault();
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Map day tabs
+    document.querySelectorAll('.map-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const day = btn.dataset.day;
+            document.querySelectorAll('.map-tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.map-day').forEach(d => d.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('map-day-' + day).classList.add('active');
+            // Init map if not yet
+            if (!mapsInitialized[day] && window.ymaps) initMap(day);
+        });
+    });
+</script>
+
+<!-- Yandex Maps API -->
+<script src="https://api-maps.yandex.ru/2.1/?apikey=&lang=ru_RU" type="text/javascript"></script>
+<script>
+    const mapsInitialized = {};
+
+    const DAYS = {
+        1: {
+            color: '#6c63ff',
+            center: [53.9025, 27.5615],
+            zoom: 14,
+            points: [
+                { coords: [53.8907, 27.5509], title: '1. Жд вокзал', desc: 'Прибытие 13:16' },
+                { coords: [53.9120, 27.5480], title: '2. Квартира', desc: 'Бульвар Мулявина, 5' },
+                { coords: [53.9050, 27.5540], title: '3. Троицкое предместье', desc: 'Цветные домики + Остров Слёз' },
+                { coords: [53.9030, 27.5560], title: '4. Верхний город', desc: 'Площадь Свободы, ратуша' },
+                { coords: [53.9040, 27.5545], title: '5. Литвины', desc: 'Ужин — белорусская кухня' },
+                { coords: [53.9035, 27.5580], title: '6. Зыбицкая', desc: 'Барная улица' },
+            ]
+        },
+        2: {
+            color: '#f472b6',
+            center: [53.9100, 27.5700],
+            zoom: 13,
+            points: [
+                { coords: [53.9168, 27.5650], title: '1. Комаровский рынок', desc: 'Завтрак + продукты' },
+                { coords: [53.8960, 27.5500], title: '2. Пл. Независимости', desc: 'Начало проспекта' },
+                { coords: [53.9005, 27.5610], title: '3. Васильки', desc: 'Обед — белорусская кухня' },
+                { coords: [53.9120, 27.6130], title: '4. Ботанический сад', desc: 'Оранжереи, первоцветы' },
+                { coords: [53.9310, 27.6460], title: '5. Нац. библиотека', desc: 'Смотровая 23 этаж' },
+                { coords: [53.9050, 27.5700], title: '6. Simple', desc: 'Ужин — авторская кухня' },
+                { coords: [53.9120, 27.5480], title: '7. Квартира', desc: 'Отдых перед завтрашним днём' },
+            ]
+        },
+        3: {
+            color: '#fb923c',
+            center: [53.9020, 27.5580],
+            zoom: 14,
+            points: [
+                { coords: [53.8907, 27.5509], title: '1. Жд вокзал', desc: 'Встреча подруг 08:57' },
+                { coords: [53.9015, 27.5590], title: '2. Stories', desc: 'Завтрак всей компанией' },
+                { coords: [53.9120, 27.5480], title: '3. Мулявина, 5', desc: 'Выезд из квартиры #1' },
+                { coords: [53.8935, 27.5640], title: '4. Октябрьская', desc: 'Арт-кластер, граффити' },
+                { coords: [53.8980, 27.5530], title: '5. Независимости, 19', desc: 'Заселение в квартиру #2' },
+                { coords: [53.9000, 27.5680], title: '6. Парк Горького', desc: 'Колесо обозрения' },
+                { coords: [53.9030, 27.5600], title: '7. Набережная Свислочи', desc: 'Прогулка вдоль реки' },
+                { coords: [53.9045, 27.5555], title: '8. Грюнвальд', desc: 'Ужин-пивоварня' },
+                { coords: [53.9035, 27.5580], title: '9. Зыбицкая', desc: 'Бар-хоппинг! 🎉' },
+            ]
+        },
+        4: {
+            color: '#34d399',
+            center: [53.8900, 27.5600],
+            zoom: 13,
+            points: [
+                { coords: [53.8995, 27.5555], title: '1. Лидо', desc: 'Поздний завтрак' },
+                { coords: [53.8630, 27.5890], title: '2. Лошицкий парк', desc: 'Усадьба, река (такси)' },
+                { coords: [53.9025, 27.5555], title: '3. Кухмистр', desc: 'Обед — суп в хлебе' },
+                { coords: [53.8960, 27.5470], title: '4. Красный костёл', desc: 'Пл. Независимости' },
+                { coords: [53.8970, 27.5540], title: '5. ГУМ', desc: 'Сувениры, косметика' },
+                { coords: [53.9010, 27.5610], title: '6. Бессонница', desc: 'Прощальный ужин' },
+                { coords: [53.8980, 27.5530], title: '7. Квартира', desc: 'Последний вечер' },
+            ]
+        },
+        5: {
+            color: '#6c63ff',
+            center: [53.8950, 27.5520],
+            zoom: 14,
+            points: [
+                { coords: [53.8980, 27.5530], title: '1. Квартира', desc: 'Чекаут 12:00' },
+                { coords: [53.8975, 27.5505], title: '2. Коммунарка', desc: 'Сувениры — шоколад' },
+                { coords: [53.8930, 27.5520], title: '3. Garage Food', desc: 'Финальный обед' },
+                { coords: [53.8907, 27.5509], title: '4. Жд вокзал', desc: 'Прибытие на вокзал' },
+                { coords: [53.8907, 27.5509], title: '5. Отъезд 15:59', desc: '🚂 Домой!' },
+            ]
+        }
+    };
+
+    function initMap(day) {
+        if (mapsInitialized[day]) return;
+        mapsInitialized[day] = true;
+
+        const data = DAYS[day];
+        const map = new ymaps.Map('ymap-' + day, {
+            center: data.center,
+            zoom: data.zoom,
+            controls: ['zoomControl', 'fullscreenControl']
+        }, {
+            suppressMapOpenBlock: true
+        });
+
+        // Custom dark-ish styling not available in 2.1, but we set a clean layer
+        map.behaviors.enable('scrollZoom');
+
+        const waypoints = data.points.map((p, i) => {
+            // Add placemarks
+            const placemark = new ymaps.Placemark(p.coords, {
+                iconContent: String(i + 1),
+                balloonContentHeader: '<b>' + p.title + '</b>',
+                balloonContentBody: p.desc,
+                hintContent: p.title
+            }, {
+                preset: 'islands#circleIcon',
+                iconColor: data.color
+            });
+            map.geoObjects.add(placemark);
+            return p.coords;
+        });
+
+        // Draw polyline route
+        if (waypoints.length > 1) {
+            const polyline = new ymaps.Polyline(waypoints, {
+                hintContent: 'Маршрут дня ' + day
+            }, {
+                strokeColor: data.color,
+                strokeWidth: 4,
+                strokeOpacity: 0.8,
+                strokeStyle: 'shortdash'
+            });
+            map.geoObjects.add(polyline);
+        }
+
+        // Fit bounds
+        if (waypoints.length > 1) {
+            const bounds = map.geoObjects.getBounds();
+            if (bounds) {
+                map.setBounds(bounds, { checkZoomRange: true, zoomMargin: 40 });
+            }
+        }
+    }
+
+    // Init first map on API ready
+    ymaps.ready(function() {
+        initMap('1');
+    });
+</script>
+</body>
+</html>
