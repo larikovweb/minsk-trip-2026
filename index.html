@@ -49,27 +49,33 @@
         .lightbox {
             display: none;
             position: fixed;
-            inset: 0;
+            top: 0; right: 0; bottom: 0; left: 0; /* fallback for iOS < 14.5 */
             z-index: 9999;
             background: rgba(0,0,0,0.92);
+            -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
             align-items: center;
             justify-content: center;
             cursor: zoom-out;
             padding: 2rem;
+            /* iOS scroll lock fix */
+            -webkit-overflow-scrolling: touch;
         }
         .lightbox.active { display: flex; }
         .lightbox img {
             max-width: 95vw;
-            max-height: 90vh;
+            max-height: 85vh; /* slightly less for iOS safe areas */
             object-fit: contain;
             border-radius: 12px;
             box-shadow: 0 0 60px rgba(108,99,255,0.2);
             animation: lbIn 0.3s ease;
+            /* iOS image rendering fix */
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
         .lightbox-caption {
             position: absolute;
-            bottom: 1.5rem;
+            bottom: calc(1.5rem + env(safe-area-inset-bottom, 0));
             left: 50%;
             transform: translateX(-50%);
             background: rgba(19,19,26,0.9);
@@ -79,10 +85,13 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             white-space: nowrap;
+            max-width: 90vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .lightbox-close {
             position: absolute;
-            top: 1.5rem;
+            top: calc(1.5rem + env(safe-area-inset-top, 0));
             right: 1.5rem;
             width: 44px;
             height: 44px;
@@ -96,6 +105,8 @@
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
+            /* iOS tap target min 44px — already met */
+            -webkit-appearance: none;
         }
         .lightbox-close:hover { background: var(--accent); }
         @keyframes lbIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
@@ -103,8 +114,8 @@
         /* Hero */
         .hero {
             min-height: 100vh;
-            min-height: 100dvh;
             min-height: -webkit-fill-available;
+            min-height: 100dvh;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; padding: 2rem; position: relative; overflow: hidden;
         }
@@ -259,12 +270,13 @@
         /* Responsive */
         /* Disable hover effects on touch devices */
         @media (hover: none), (pointer: coarse) {
-            .event-card:hover { background: var(--card); border-color: var(--border); transform: none; }
-            .event-card:hover[style*="border-color"] { transform: none; }
+            .event-card:hover { background: var(--card); border-color: inherit; transform: none !important; }
             .info-card:hover { border-color: var(--border); }
-            .event-img:hover { filter: none; }
-            .alt-img:hover { filter: none; }
-            .table-img:hover { filter: none; }
+            .event-img:hover, .alt-img:hover, .table-img:hover { filter: none; }
+            .tab-btn:hover { border-color: var(--border); color: var(--text-muted); }
+            .map-tab-btn:hover { border-color: var(--border); color: var(--text-muted); }
+            .map-link:hover { color: var(--accent-light); }
+            .random-btn:hover { background: var(--pink) !important; border-color: var(--pink) !important; }
         }
 
         @media (max-width: 768px) {
@@ -294,6 +306,9 @@
         .map-container {
             width: 100%; height: 520px; border-radius: 16px; overflow: hidden;
             border: 1px solid var(--border); margin-bottom: 1rem;
+            /* iOS Safari border-radius + overflow:hidden fix */
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+            isolation: isolate;
         }
         .map-legend {
             display: flex; gap: 1rem; flex-wrap: wrap; padding: 1rem 0;
@@ -1430,30 +1445,49 @@
 <div class="footer"><p>Минск 2026 · 16-20 апреля · сделано с 💜</p></div>
 
 <script>
-    // Lightbox
+    // Lightbox — iOS-safe scroll lock
+    var lbScrollY = 0;
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbCaption = document.getElementById('lbCaption');
 
-    document.addEventListener('click', e => {
-        const img = e.target.closest('.event-img, .alt-img, .table-img');
-        if (img) {
-            e.stopPropagation();
-            lbImg.src = img.src;
-            lbCaption.textContent = img.dataset.caption || img.alt || '';
-            lb.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    });
+    function openLb(src, caption) {
+        lbScrollY = window.scrollY || window.pageYOffset || 0;
+        lbImg.src = src;
+        lbCaption.textContent = caption;
+        lb.classList.add('active');
+        // iOS-safe scroll lock: position:fixed + restore scroll position
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + lbScrollY + 'px';
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.overflow = 'hidden';
+    }
 
     function closeLb() {
         lb.classList.remove('active');
+        // Restore scroll position
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
         document.body.style.overflow = '';
+        window.scrollTo(0, lbScrollY);
     }
+
+    document.addEventListener('click', function(e) {
+        var img = e.target.closest('.event-img, .alt-img, .table-img');
+        if (img) {
+            e.preventDefault();
+            e.stopPropagation();
+            openLb(img.src, img.dataset.caption || img.alt || '');
+        }
+    });
+
     lb.addEventListener('click', closeLb);
-    document.getElementById('lbClose').addEventListener('click', closeLb);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
-    lbImg.addEventListener('click', e => e.stopPropagation());
+    document.getElementById('lbClose').addEventListener('click', function(e) { e.stopPropagation(); closeLb(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLb(); });
+    lbImg.addEventListener('click', function(e) { e.stopPropagation(); });
 
     // Tabs
     document.querySelectorAll('.tab-btn:not(.random-btn)').forEach(btn => {
@@ -1510,7 +1544,7 @@
             + '</div>'
             + '<div class="rr-dice">🎲 Нажми ещё раз для другого варианта</div>';
 
-        rr.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        smoothScrollTo(rr);
     });
 
     // Scroll animations (with fallback for Telegram WebView)
@@ -1529,22 +1563,31 @@
         document.querySelectorAll('.fade-in:not(.visible)').forEach(el => el.classList.add('visible'));
     }, 2000);
 
-    // Active nav
-    const sections = document.querySelectorAll('section[id]');
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(s => { if (scrollY >= s.offsetTop - 100) current = s.id; });
-        document.querySelectorAll('.nav-link').forEach(l => {
+    // Active nav — Safari-safe scrollY
+    var navSections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', function() {
+        var sy = window.scrollY || window.pageYOffset || 0;
+        var current = '';
+        navSections.forEach(function(s) { if (sy >= s.offsetTop - 100) current = s.id; });
+        document.querySelectorAll('.nav-link').forEach(function(l) {
             l.classList.toggle('active', l.getAttribute('href') === '#' + current);
         });
-    });
+    }, { passive: true });
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
+    // Smooth scroll — Safari fallback
+    function smoothScrollTo(el) {
+        if (!el) return;
+        try {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } catch (e) {
+            // Fallback for Safari < 15.4 that doesn't support smooth
+            el.scrollIntoView(true);
+        }
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
         a.addEventListener('click', function(e) {
             e.preventDefault();
-            const t = document.querySelector(this.getAttribute('href'));
-            if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            smoothScrollTo(document.querySelector(this.getAttribute('href')));
         });
     });
 
@@ -1652,8 +1695,12 @@
             suppressMapOpenBlock: true
         });
 
-        // Custom dark-ish styling not available in 2.1, but we set a clean layer
-        map.behaviors.enable('scrollZoom');
+        // Disable scroll zoom on touch devices (prevents page getting stuck on iOS)
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            map.behaviors.disable('scrollZoom');
+        } else {
+            map.behaviors.enable('scrollZoom');
+        }
 
         const waypoints = data.points.map((p, i) => {
             // Add placemarks
@@ -1692,10 +1739,16 @@
         }
     }
 
-    // Init first map on API ready
-    ymaps.ready(function() {
-        initMap('1');
-    });
+    // Init first map on API ready — with Safari guard
+    function tryInitMaps() {
+        if (typeof ymaps !== 'undefined' && ymaps.ready) {
+            ymaps.ready(function() { initMap('1'); });
+        } else {
+            // API not loaded yet, retry
+            setTimeout(tryInitMaps, 500);
+        }
+    }
+    tryInitMaps();
 </script>
 </body>
 </html>
